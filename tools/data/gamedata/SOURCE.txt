@@ -3,3 +3,4 @@ build: 1.60.1.70938
 source: https://wago.tools/db2/<Table>/csv?build=1.60.1.70938
 Map.csv is reduced to dungeon/raid rows and a few columns.
 LFGDungeons.csv is reduced to dungeon/raid entries (TypeID 0) and the columns used; ContentTuning.csv to level columns.
+AreaTable.csv is reduced to top-level areas (ParentAreaID 0) of instance maps; its IDs are Wowhead's zone IDs.

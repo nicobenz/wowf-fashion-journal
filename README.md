@@ -86,17 +86,34 @@ send that file instead of copying the text.
 ## Development
 
 ### Dungeon data
-`Data/Dungeons.lua` is generated, so don't edit it by hand.
-1. On a Wowhead Forever dungeon zone page, run `tools/wowhead_export.js` in the browser
-   console. It copies the page's loot and NPC tables as JSON.
-2. Save the JSON as `tools/data/wowhead/<dungeon>.json`.
-3. Run `python3 tools/build_data.py`. It matches the drops to the boss encounters in
-   `tools/data/gamedata/DungeonEncounter.csv` (taken from the game client) and prints
-   which items it excluded and why. If an add's loot belongs to a boss with a
-   different name (e.g. Sneed's Shredder → Sneed), add it to
-   `tools/data/npc_aliases.json`.
-4. In game, run `/fj probe data` to check every item's binding, quality and
-   appearance.
+`Data/Dungeons.lua` is generated, so don't edit it by hand. Wowhead's drop data is
+collected by players and fills in over time, so refresh it every week or so.
+
+**One-time setup:** run `python3 tools/wowhead.py bookmarklet` and save the printed
+`javascript:` URL as a browser bookmark (e.g. "FJ export").
+
+**Weekly refresh:**
+1. `python3 tools/wowhead.py open` opens the 28 dungeon pages on Wowhead, 7 tabs at a
+   time. On each tab, click the bookmark: it downloads `fashionjournal-zone-<id>.json`.
+2. `python3 tools/wowhead.py import --delete` reads those files from `~/Downloads`
+   (or pass another folder), stores them in `tools/data/wowhead/<dungeon>.json`, shows
+   per dungeon which drops were added, removed or got a new source, and rebuilds
+   `Data/Dungeons.lua`.
+3. In game: `/reload`, then `/fj probe data` to check the new items (binding, quality,
+   appearance).
+4. Commit `tools/data/wowhead/` and `Data/Dungeons.lua`.
+
+`python3 tools/wowhead.py list` shows every dungeon with its Wowhead URL and last
+export date, and `open --missing` opens only dungeons that have no export yet.
+
+**Data files** in `tools/data/`:
+- `dungeons.json`: the 28 live dungeons with map ID, level and Wowhead URL. It is
+  generated from the client's game data by `tools/make_dungeon_list.py`; re-run that
+  only when Blizzard adds dungeons.
+- `npc_aliases.json`: adds whose loot belongs to a boss with a different name
+  (e.g. Sneed's Shredder → Sneed).
+- `excluded_items.json`: items to leave out, with the in-game evidence.
+- `gamedata/`: tables from the Forever client (via wago.tools), see `SOURCE.txt`.
 
 - Tests: `lua5.1 tests/run.lua` (also run in GitHub Actions).
 - Lint: `luacheck .` (config in `.luacheckrc`, also run in GitHub Actions).

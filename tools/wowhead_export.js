@@ -1,8 +1,12 @@
-// Wowhead export snippet for Fashion Journal.
+// Wowhead export for Fashion Journal.
 //
-// Usage: open a Wowhead Forever dungeon zone page (e.g. https://www.wowhead.com/forever/zone=1581/the-deadmines),
-// open the browser's developer console (F12 -> Console), paste this whole file and press Enter.
-// The page's item and NPC tables are copied to the clipboard as JSON.
+// Use it as a bookmarklet (recommended): run `python3 tools/wowhead.py bookmarklet` and save
+// the printed javascript: URL as a bookmark. On a Wowhead Forever dungeon zone page, click the
+// bookmark: the page's loot and NPC tables are downloaded as fashionjournal-zone-<id>.json.
+// Then run `python3 tools/wowhead.py import` to bring the downloads into the project.
+//
+// It also works when pasted into the browser console (F12), where it additionally copies
+// the JSON to the clipboard.
 //
 // It only reads data the page has already loaded; it makes no requests.
 (() => {
@@ -30,6 +34,12 @@
     return out;
   };
 
+  const zone = (location.href.match(/\/zone=(\d+)/) || [])[1];
+  if (!zone) {
+    alert("Fashion Journal: this is not a Wowhead zone page.");
+    return;
+  }
+
   const views = window.g_listviews || {};
   const tables = [];
   for (const [key, lv] of Object.entries(views)) {
@@ -53,10 +63,20 @@
     tables,
   };
   const json = JSON.stringify(result);
+  const summary = tables.map((t) => `${t.id} (${t.kind}): ${t.rows.length}`).join(", ") || "none found";
+
+  // Download as a file.
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+  link.download = `fashionjournal-zone-${zone}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+
+  // In the console, also copy to the clipboard.
   if (typeof copy === "function") {
     copy(json);
   }
-  const summary = tables.map((t) => `${t.id} (${t.kind}): ${t.rows.length}`).join(", ");
-  console.log(`Fashion Journal export: ${json.length} characters copied to clipboard. Tables: ${summary || "none found"}`);
-  return summary;
+  console.log(`Fashion Journal export: zone ${zone}, ${json.length} characters. Tables: ${summary}`);
 })();

@@ -1,0 +1,226 @@
+[
+  {
+    "key": "ragefire_chasm",
+    "name": "Ragefire Chasm",
+    "mapID": 389,
+    "level": 13,
+    "wowheadZone": 2437,
+    "url": "https://www.wowhead.com/forever/zone=2437"
+  },
+  {
+    "key": "hall_of_thanes",
+    "name": "The Hall of Thanes",
+    "mapID": 3065,
+    "level": 13,
+    "wowheadZone": 16919,
+    "url": "https://www.wowhead.com/forever/zone=16919"
+  },
+  {
+    "key": "ruins_of_lordaeron",
+    "name": "Ruins of Lordaeron",
+    "mapID": 2999,
+    "level": 15,
+    "wowheadZone": 16611,
+    "url": "https://www.wowhead.com/forever/zone=16611"
+  },
+  {
+    "key": "deadmines",
+    "name": "The Deadmines",
+    "mapID": 36,
+    "level": 16,
+    "wowheadZone": 1581,
+    "url": "https://www.wowhead.com/forever/zone=1581"
+  },
+  {
+    "key": "wailing_caverns",
+    "name": "Wailing Caverns",
+    "mapID": 43,
+    "level": 17,
+    "wowheadZone": 718,
+    "url": "https://www.wowhead.com/forever/zone=718"
+  },
+  {
+    "key": "shadowfang_keep",
+    "name": "Shadowfang Keep",
+    "mapID": 33,
+    "level": 18,
+    "wowheadZone": 209,
+    "url": "https://www.wowhead.com/forever/zone=209"
+  },
+  {
+    "key": "blackfathom_deeps",
+    "name": "Blackfathom Deeps",
+    "mapID": 48,
+    "level": 22,
+    "wowheadZone": 719,
+    "url": "https://www.wowhead.com/forever/zone=719"
+  },
+  {
+    "key": "stockade",
+    "name": "The Stockade",
+    "mapID": 34,
+    "level": 23,
+    "wowheadZone": 717,
+    "url": "https://www.wowhead.com/forever/zone=717"
+  },
+  {
+    "key": "razorfen_kraul",
+    "name": "Razorfen Kraul",
+    "mapID": 47,
+    "level": 24,
+    "wowheadZone": 491,
+    "url": "https://www.wowhead.com/forever/zone=491"
+  },
+  {
+    "key": "gnomeregan",
+    "name": "Gnomeregan",
+    "mapID": 90,
+    "level": 25,
+    "wowheadZone": 721,
+    "url": "https://www.wowhead.com/forever/zone=721"
+  },
+  {
+    "key": "excavation_site_wetlands",
+    "name": "Excavation Site: Wetlands",
+    "mapID": 2998,
+    "level": 26,
+    "wowheadZone": 16732,
+    "url": "https://www.wowhead.com/forever/zone=16732"
+  },
+  {
+    "key": "city_of_dalaran",
+    "name": "City of Dalaran",
+    "mapID": 2959,
+    "level": 28,
+    "wowheadZone": 16544,
+    "url": "https://www.wowhead.com/forever/zone=16544"
+  },
+  {
+    "key": "scarlet_monastery",
+    "name": "Scarlet Monastery",
+    "mapID": 189,
+    "level": 30,
+    "wowheadZone": 796,
+    "url": "https://www.wowhead.com/forever/zone=796"
+  },
+  {
+    "key": "razorfen_downs",
+    "name": "Razorfen Downs",
+    "mapID": 129,
+    "level": 34,
+    "wowheadZone": 722,
+    "url": "https://www.wowhead.com/forever/zone=722"
+  },
+  {
+    "key": "drowned_city",
+    "name": "The Drowned City",
+    "mapID": 2970,
+    "level": 35,
+    "wowheadZone": 16550,
+    "url": "https://www.wowhead.com/forever/zone=16550"
+  },
+  {
+    "key": "uldaman",
+    "name": "Uldaman",
+    "mapID": 70,
+    "level": 35,
+    "wowheadZone": 1337,
+    "url": "https://www.wowhead.com/forever/zone=1337"
+  },
+  {
+    "key": "krol_dok_stronghold",
+    "name": "Krol'dok Stronghold",
+    "mapID": 3039,
+    "level": 40,
+    "wowheadZone": 16842,
+    "url": "https://www.wowhead.com/forever/zone=16842"
+  },
+  {
+    "key": "maraudon",
+    "name": "Maraudon",
+    "mapID": 349,
+    "level": 42,
+    "wowheadZone": 2100,
+    "url": "https://www.wowhead.com/forever/zone=2100"
+  },
+  {
+    "key": "zul_farrak",
+    "name": "Zul'Farrak",
+    "mapID": 209,
+    "level": 42,
+    "wowheadZone": 1176,
+    "url": "https://www.wowhead.com/forever/zone=1176"
+  },
+  {
+    "key": "sunken_temple",
+    "name": "Sunken Temple",
+    "mapID": 109,
+    "level": 45,
+    "wowheadZone": 1417,
+    "url": "https://www.wowhead.com/forever/zone=1417"
+  },
+  {
+    "key": "alcaz_prison",
+    "name": "Alcaz Prison",
+    "mapID": 2994,
+    "level": 48,
+    "wowheadZone": 16620,
+    "url": "https://www.wowhead.com/forever/zone=16620"
+  },
+  {
+    "key": "blackrock_depths",
+    "name": "Blackrock Depths",
+    "mapID": 230,
+    "level": 48,
+    "wowheadZone": 17803,
+    "url": "https://www.wowhead.com/forever/zone=17803"
+  },
+  {
+    "key": "blackrock_spire",
+    "name": "Blackrock Spire",
+    "mapID": 229,
+    "level": 53,
+    "wowheadZone": 17804,
+    "url": "https://www.wowhead.com/forever/zone=17804"
+  },
+  {
+    "key": "dire_maul",
+    "name": "Dire Maul",
+    "mapID": 429,
+    "level": 54,
+    "wowheadZone": 2557,
+    "url": "https://www.wowhead.com/forever/zone=2557"
+  },
+  {
+    "key": "blackmaw_hold",
+    "name": "Blackmaw Hold",
+    "mapID": 2974,
+    "level": 55,
+    "wowheadZone": 16554,
+    "url": "https://www.wowhead.com/forever/zone=16554"
+  },
+  {
+    "key": "stratholme",
+    "name": "Stratholme",
+    "mapID": 329,
+    "level": 55,
+    "wowheadZone": 2017,
+    "url": "https://www.wowhead.com/forever/zone=2017"
+  },
+  {
+    "key": "scholomance",
+    "name": "Scholomance",
+    "mapID": 289,
+    "level": 57,
+    "wowheadZone": 2057,
+    "url": "https://www.wowhead.com/forever/zone=2057"
+  },
+  {
+    "key": "shaper_s_terrace",
+    "name": "The Shaper's Terrace",
+    "mapID": 3001,
+    "level": 60,
+    "wowheadZone": 16667,
+    "url": "https://www.wowhead.com/forever/zone=16667"
+  }
+]

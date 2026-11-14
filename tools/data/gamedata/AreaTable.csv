@@ -1,0 +1,79 @@
+ID,AreaName_lang,ContinentID,ParentAreaID
+206,Westfall,36,0
+207,The Great Sea,36,0
+208,Unused Ironcladcove,36,0
+209,Shadowfang Keep,33,0
+210,***On Map Dungeon***,36,0
+491,Razorfen Kraul,47,0
+717,The Stockade,34,0
+718,Wailing Caverns,43,0
+719,Blackfathom Deeps,48,0
+721,Gnomeregan,90,0
+722,Razorfen Downs,129,0
+796,Scarlet Monastery,189,0
+956,The Verdant Fields,169,0
+1176,Zul'Farrak,209,0
+1337,Uldaman,70,0
+1397,Emerald Forest,169,0
+1417,Sunken Temple,109,0
+1581,The Deadmines,36,0
+1977,Zul'Gurub,309,0
+2017,Stratholme,329,0
+2057,Scholomance,289,0
+2100,Maraudon,349,0
+2366,The Black Morass,269,0
+2367,Old Hillsbrad Foothills,269,0
+2437,Ragefire Chasm,389,0
+2557,Dire Maul,429,0
+2677,Blackwing Lair,469,0
+2717,Molten Core,409,0
+3428,Ahn'Qiraj,531,0
+3429,Ruins of Ahn'Qiraj,509,0
+3456,Naxxramas,533,0
+13649,Test Dungeon,13,0
+15475,Demon Fall Canyon,2784,0
+15531,The Tainted Scar,2789,0
+15532,Storm Cliffs,2791,0
+15793,Elsewhen,269,0
+15809,Felwood,2806,0
+15825,The Crystal Vale,2804,0
+15828,The Burning of Andorhal,2807,0
+15938,Starfall Village,2817,0
+16003,Azshara,2832,0
+16004,Mount Hyjal,2832,0
+16017,Desolace,2832,0
+16018,Feralas,2832,0
+16028,Eastern Plaguelands,2832,0
+16029,The Hinterlands,2832,0
+16074,Karazhan Crypts,2875,0
+16076,Temple of Ahn'Qiraj,531,0
+16113,Redridge Mountains,2853,0
+16114,Deadwind Pass,2853,0
+16115,Blasted Lands,2853,0
+16116,Swamp of Sorrows,2853,0
+16117,Stranglethorn Vale,2853,0
+16118,Elwynn Forest,2853,0
+16119,Duskwood,2853,0
+16147,Elwynn Forest,2832,0
+16148,Duskwood,2832,0
+16149,Westfall,2832,0
+16169,Ashenvale,2832,0
+16236,Scarlet Enclave,2856,0
+16295,The Scarab Dais,2902,0
+16362,Shadow Hold,2806,0
+16394,Naxxramas,2921,0
+16544,City of Dalaran,2959,0
+16560,City of Dalaran,2959,0
+16562,Hillsbrad Foothills,2959,0
+16611,Ruins of Lordaeron,2999,0
+16732,Excavation Site: Wetlands,2998,0
+16919,The Hall of Thanes,3065,0
+17191,Manor Mistmantle,3109,0
+17803,Blackrock Depths,230,0
+17804,Blackrock Spire,229,0
+16550,The Drowned City,2970,0
+16554,Blackmaw Hold,2974,0
+16619,Excavation Site - Bael Modan,3001,0
+16620,Alcaz Prison,2994,0
+16667,The Shaper's Terrace,3001,0
+16842,Krol'dok Stronghold,3039,0
