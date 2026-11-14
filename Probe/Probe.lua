@@ -488,13 +488,23 @@ function Probe:CheckData(rep, done)
 	rep:Add("%d dungeons, %d items. Flags: !BIND = not bind-on-pickup, !QUALITY = below Uncommon, !APPEARANCE = no transmog source, !LOAD = no item data",
 		#(ns.Dungeons or {}), #itemIDs)
 
+	-- With a lot of data, list only flagged items so the report stays pasteable.
+	local problemsOnly = #itemIDs > 100
+	if problemsOnly then
+		rep:Add("Large data set: only items with problems are listed.")
+	end
+
 	LoadItems(itemIDs, function()
 		local problems, collected = 0, 0
 		for _, dungeon in ipairs(ns.Dungeons or {}) do
-			rep:Add("")
-			rep:Add("[%s] %s (mapID %d)", dungeon.key, dungeon.name, dungeon.mapID)
+			if not problemsOnly then
+				rep:Add("")
+				rep:Add("[%s] %s (mapID %d)", dungeon.key, dungeon.name, dungeon.mapID)
+			end
 			for _, boss in ipairs(dungeon.bosses) do
-				rep:Add("  %s (encounter %d)", boss.name, boss.encounterID)
+				if not problemsOnly then
+					rep:Add("  %s (encounter %d)", boss.name, boss.encounterID)
+				end
 				for _, itemID in ipairs(boss.items) do
 					local info = call("C_Item.GetItemInfo", itemID)
 					local name, quality, bindType = info[1], info[3], info[14]
@@ -519,9 +529,12 @@ function Probe:CheckData(rep, done)
 					if #flags > 0 then
 						problems = problems + 1
 					end
-					rep:Add("    %d %s  q=%s bind=%s appearance=%s source=%s %s %s", itemID, tostring(name),
-						tostring(quality), BIND_NAMES[bindType] or tostring(bindType), tostring(appearanceID),
-						tostring(sourceID), isCollected and "COLLECTED" or "missing", table.concat(flags, " "))
+					if not problemsOnly or #flags > 0 then
+						rep:Add("    %s%d %s  q=%s bind=%s appearance=%s source=%s %s %s",
+							problemsOnly and (dungeon.key .. " / " .. boss.name .. ": ") or "", itemID, tostring(name),
+							tostring(quality), BIND_NAMES[bindType] or tostring(bindType), tostring(appearanceID),
+							tostring(sourceID), isCollected and "COLLECTED" or "missing", table.concat(flags, " "))
+					end
 				end
 			end
 		end
