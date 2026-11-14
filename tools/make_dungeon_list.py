@@ -40,6 +40,8 @@ def main():
                if not k.startswith("_")}
     map_by_name = {norm(m["MapName_lang"]): map_id for map_id, m in maps.items()}
     areas = read("AreaTable.csv")
+    zone_overrides = {k: v for k, v in json.loads((DATA / "wowhead_zones.json").read_text(encoding="utf-8")).items()
+                      if not k.startswith("_")}
 
     dungeons = {}
     for row in read("LFGDungeons.csv"):
@@ -64,13 +66,15 @@ def main():
         if not area:
             raise SystemExit(f"no Wowhead zone found for map {map_id} {map_name}")
         name = area["AreaName_lang"]
+        zones = zone_overrides.get(map_id) or [int(area["ID"])]
         out.append({
             "key": slug(name),
             "name": name,
             "mapID": int(map_id),
             "level": d["level"],
-            "wowheadZone": int(area["ID"]),
-            "url": WOWHEAD_ZONE_URL.format(area["ID"]),
+            "wowheadZone": zones[0],
+            "wowheadZones": zones,
+            "url": WOWHEAD_ZONE_URL.format(zones[0]),
         })
     out.sort(key=lambda d: (d["level"], d["name"].lower()))
     OUTPUT.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

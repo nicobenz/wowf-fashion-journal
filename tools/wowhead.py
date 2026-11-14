@@ -163,7 +163,7 @@ def cmd_import(args):
     if not files:
         print(f"no fashionjournal-zone-*.json files in {source_dir}")
         return 1
-    by_zone = {d["wowheadZone"]: d for d in load_dungeons()}
+    by_zone = {zone: d for d in load_dungeons() for zone in d.get("wowheadZones", [d["wowheadZone"]])}
     EXPORTS.mkdir(parents=True, exist_ok=True)
     imported, problems = [], []
     for f in files:
@@ -175,7 +175,8 @@ def cmd_import(args):
             continue
         export = reduce_export(raw)
         if not drops(export):
-            problems.append(f"{f.name}: no drops table (was the page fully loaded?)")
+            problems.append(f"{f.name}: {dungeon['name']} has no drops table on this page "
+                            f"(not loaded yet, or Wowhead uses another zone ID; see tools/data/wowhead_zones.json)")
             continue
         target = export_path(dungeon)
         old = json.loads(target.read_text(encoding="utf-8")) if target.exists() else None

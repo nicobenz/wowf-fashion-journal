@@ -31,6 +31,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "tools" / "data"
 OUTPUT = ROOT / "Data" / "Dungeons.lua"
 MIN_QUALITY = 2  # Uncommon
+NORMAL_DIFFICULTIES = {0, 1}  # other DifficultyIDs are variants of the same map (e.g. Season of Discovery)
+
+
+class BuildError(Exception):
+    pass
 
 
 def load_json(name, default=None):
@@ -45,14 +50,25 @@ def without_comments(mapping):
 
 
 def load_encounters():
-    by_map = defaultdict(list)
+    """Boss encounters per map, normal difficulty only, in dungeon order."""
+    all_by_map = defaultdict(list)
     with open(DATA / "gamedata" / "DungeonEncounter.csv", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            by_map[int(row["MapID"])].append({
+            all_by_map[int(row["MapID"])].append({
                 "id": int(row["ID"]),
                 "name": row["Name_lang"],
                 "order": int(row["OrderIndex"]),
+                "difficulty": int(row["DifficultyID"]),
             })
+    by_map = {}
+    for map_id, encounters in all_by_map.items():
+        normal = [e for e in encounters if e["difficulty"] in NORMAL_DIFFICULTIES]
+        chosen, seen = [], set()
+        for e in sorted(normal or encounters, key=lambda e: (e["order"], e["id"])):
+            if e["name"] not in seen:  # one entry per boss
+                seen.add(e["name"])
+                chosen.append(e)
+        by_map[map_id] = chosen
     return by_map
 
 
@@ -66,6 +82,7 @@ def table(export, kind, table_id=None):
 def best_matching_map(export, encounters_by_map, aliases):
     """The instance map whose boss encounters best match the NPCs on the Wowhead page."""
     npc_names = {r.get("name") for r in table(export, "npc")}
+    npc_names |= {s.get("n") for r in table(export, "item", "drops") for s in r.get("sourcemore") or []}
     npc_names |= {aliases[n] for n in npc_names if n in aliases}
     best, best_score = None, 0
     for map_id, encounters in encounters_by_map.items():
@@ -77,13 +94,16 @@ def best_matching_map(export, encounters_by_map, aliases):
 
 def build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log):
     map_id = dungeon["mapID"]
-    encounters = sorted(encounters_by_map.get(map_id, []), key=lambda e: e["order"])
+    encounters = encounters_by_map.get(map_id, [])
     found_map, score = best_matching_map(export, encounters_by_map, aliases)
     log.append(f"{dungeon['key']}: {dungeon['name']} (map {map_id}), {score}/{len(encounters)} encounters matched, "
                f"exported {str(export.get('exportedAt'))[:10]}")
+    if found_map is None:
+        raise BuildError(f"{dungeon['key']}: no boss of this dungeon appears in the Wowhead export "
+                         f"(Wowhead's data for it may still be too thin)")
     if found_map != map_id:
-        raise SystemExit(f"{dungeon['key']}: the Wowhead export matches map {found_map}, not {map_id}. "
-                         f"Wrong page? Check the URL in tools/data/dungeons.json.")
+        raise BuildError(f"{dungeon['key']}: the Wowhead export matches map {found_map}, not {map_id}. "
+                         f"Wrong page? Check the zone in tools/data/dungeons.json.")
 
     by_name = {e["name"]: e for e in encounters}
     items_by_boss = {e["id"]: [] for e in encounters}
@@ -173,14 +193,17 @@ def main():
         if path.stem not in known_keys:
             raise SystemExit(f"tools/data/wowhead/{path.name}: not a dungeon key from tools/data/dungeons.json")
 
-    log, dungeons, missing = [], [], []
+    log, dungeons, missing, errors = [], [], [], []
     for dungeon in dungeon_list:  # already ordered by level, then name
         path = DATA / "wowhead" / f"{dungeon['key']}.json"
         if not path.exists():
             missing.append(dungeon)
             continue
         export = json.loads(path.read_text(encoding="utf-8"))
-        dungeons.append(build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log))
+        try:
+            dungeons.append(build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log))
+        except BuildError as err:
+            errors.append(str(err))
 
     text = render(dungeons)
     if args.check:
@@ -197,7 +220,9 @@ def main():
         print(f"{len(missing)} dungeons without a Wowhead export yet: " + ", ".join(d["name"] for d in missing))
     total = sum(len(b["items"]) for d in dungeons for b in d["bosses"])
     print(f"wrote {OUTPUT.relative_to(ROOT)}: {len(dungeons)} dungeons, {total} items")
-    return 0
+    for err in errors:
+        print("ERROR (dungeon skipped): " + err)
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

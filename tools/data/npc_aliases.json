@@ -1,4 +1,5 @@
 {
   "_comment": "NPCs whose loot belongs to a boss encounter with a different name. Key: NPC name as on Wowhead. Value: DungeonEncounter name.",
-  "Sneed's Shredder": "Sneed"
+  "Sneed's Shredder": "Sneed",
+  "Gelihast": "Geilhast"
 }

@@ -5,6 +5,9 @@
     "mapID": 389,
     "level": 13,
     "wowheadZone": 2437,
+    "wowheadZones": [
+      2437
+    ],
     "url": "https://www.wowhead.com/forever/zone=2437"
   },
   {
@@ -13,6 +16,9 @@
     "mapID": 3065,
     "level": 13,
     "wowheadZone": 16919,
+    "wowheadZones": [
+      16919
+    ],
     "url": "https://www.wowhead.com/forever/zone=16919"
   },
   {
@@ -21,6 +27,9 @@
     "mapID": 2999,
     "level": 15,
     "wowheadZone": 16611,
+    "wowheadZones": [
+      16611
+    ],
     "url": "https://www.wowhead.com/forever/zone=16611"
   },
   {
@@ -29,6 +38,9 @@
     "mapID": 36,
     "level": 16,
     "wowheadZone": 1581,
+    "wowheadZones": [
+      1581
+    ],
     "url": "https://www.wowhead.com/forever/zone=1581"
   },
   {
@@ -37,6 +49,9 @@
     "mapID": 43,
     "level": 17,
     "wowheadZone": 718,
+    "wowheadZones": [
+      718
+    ],
     "url": "https://www.wowhead.com/forever/zone=718"
   },
   {
@@ -45,6 +60,9 @@
     "mapID": 33,
     "level": 18,
     "wowheadZone": 209,
+    "wowheadZones": [
+      209
+    ],
     "url": "https://www.wowhead.com/forever/zone=209"
   },
   {
@@ -53,6 +71,9 @@
     "mapID": 48,
     "level": 22,
     "wowheadZone": 719,
+    "wowheadZones": [
+      719
+    ],
     "url": "https://www.wowhead.com/forever/zone=719"
   },
   {
@@ -61,6 +82,9 @@
     "mapID": 34,
     "level": 23,
     "wowheadZone": 717,
+    "wowheadZones": [
+      717
+    ],
     "url": "https://www.wowhead.com/forever/zone=717"
   },
   {
@@ -69,6 +93,9 @@
     "mapID": 47,
     "level": 24,
     "wowheadZone": 491,
+    "wowheadZones": [
+      491
+    ],
     "url": "https://www.wowhead.com/forever/zone=491"
   },
   {
@@ -77,6 +104,9 @@
     "mapID": 90,
     "level": 25,
     "wowheadZone": 721,
+    "wowheadZones": [
+      721
+    ],
     "url": "https://www.wowhead.com/forever/zone=721"
   },
   {
@@ -85,6 +115,9 @@
     "mapID": 2998,
     "level": 26,
     "wowheadZone": 16732,
+    "wowheadZones": [
+      16732
+    ],
     "url": "https://www.wowhead.com/forever/zone=16732"
   },
   {
@@ -92,8 +125,12 @@
     "name": "City of Dalaran",
     "mapID": 2959,
     "level": 28,
-    "wowheadZone": 16544,
-    "url": "https://www.wowhead.com/forever/zone=16544"
+    "wowheadZone": 16560,
+    "wowheadZones": [
+      16560,
+      16544
+    ],
+    "url": "https://www.wowhead.com/forever/zone=16560"
   },
   {
     "key": "scarlet_monastery",
@@ -101,6 +138,9 @@
     "mapID": 189,
     "level": 30,
     "wowheadZone": 796,
+    "wowheadZones": [
+      796
+    ],
     "url": "https://www.wowhead.com/forever/zone=796"
   },
   {
@@ -109,6 +149,9 @@
     "mapID": 129,
     "level": 34,
     "wowheadZone": 722,
+    "wowheadZones": [
+      722
+    ],
     "url": "https://www.wowhead.com/forever/zone=722"
   },
   {
@@ -117,6 +160,9 @@
     "mapID": 2970,
     "level": 35,
     "wowheadZone": 16550,
+    "wowheadZones": [
+      16550
+    ],
     "url": "https://www.wowhead.com/forever/zone=16550"
   },
   {
@@ -125,6 +171,9 @@
     "mapID": 70,
     "level": 35,
     "wowheadZone": 1337,
+    "wowheadZones": [
+      1337
+    ],
     "url": "https://www.wowhead.com/forever/zone=1337"
   },
   {
@@ -133,6 +182,9 @@
     "mapID": 3039,
     "level": 40,
     "wowheadZone": 16842,
+    "wowheadZones": [
+      16842
+    ],
     "url": "https://www.wowhead.com/forever/zone=16842"
   },
   {
@@ -141,6 +193,9 @@
     "mapID": 349,
     "level": 42,
     "wowheadZone": 2100,
+    "wowheadZones": [
+      2100
+    ],
     "url": "https://www.wowhead.com/forever/zone=2100"
   },
   {
@@ -149,6 +204,9 @@
     "mapID": 209,
     "level": 42,
     "wowheadZone": 1176,
+    "wowheadZones": [
+      1176
+    ],
     "url": "https://www.wowhead.com/forever/zone=1176"
   },
   {
@@ -156,8 +214,12 @@
     "name": "Sunken Temple",
     "mapID": 109,
     "level": 45,
-    "wowheadZone": 1417,
-    "url": "https://www.wowhead.com/forever/zone=1417"
+    "wowheadZone": 1477,
+    "wowheadZones": [
+      1477,
+      1417
+    ],
+    "url": "https://www.wowhead.com/forever/zone=1477"
   },
   {
     "key": "alcaz_prison",
@@ -165,6 +227,9 @@
     "mapID": 2994,
     "level": 48,
     "wowheadZone": 16620,
+    "wowheadZones": [
+      16620
+    ],
     "url": "https://www.wowhead.com/forever/zone=16620"
   },
   {
@@ -172,16 +237,24 @@
     "name": "Blackrock Depths",
     "mapID": 230,
     "level": 48,
-    "wowheadZone": 17803,
-    "url": "https://www.wowhead.com/forever/zone=17803"
+    "wowheadZone": 1584,
+    "wowheadZones": [
+      1584,
+      17803
+    ],
+    "url": "https://www.wowhead.com/forever/zone=1584"
   },
   {
     "key": "blackrock_spire",
     "name": "Blackrock Spire",
     "mapID": 229,
     "level": 53,
-    "wowheadZone": 17804,
-    "url": "https://www.wowhead.com/forever/zone=17804"
+    "wowheadZone": 1583,
+    "wowheadZones": [
+      1583,
+      17804
+    ],
+    "url": "https://www.wowhead.com/forever/zone=1583"
   },
   {
     "key": "dire_maul",
@@ -189,6 +262,9 @@
     "mapID": 429,
     "level": 54,
     "wowheadZone": 2557,
+    "wowheadZones": [
+      2557
+    ],
     "url": "https://www.wowhead.com/forever/zone=2557"
   },
   {
@@ -197,6 +273,9 @@
     "mapID": 2974,
     "level": 55,
     "wowheadZone": 16554,
+    "wowheadZones": [
+      16554
+    ],
     "url": "https://www.wowhead.com/forever/zone=16554"
   },
   {
@@ -205,6 +284,9 @@
     "mapID": 329,
     "level": 55,
     "wowheadZone": 2017,
+    "wowheadZones": [
+      2017
+    ],
     "url": "https://www.wowhead.com/forever/zone=2017"
   },
   {
@@ -213,6 +295,9 @@
     "mapID": 289,
     "level": 57,
     "wowheadZone": 2057,
+    "wowheadZones": [
+      2057
+    ],
     "url": "https://www.wowhead.com/forever/zone=2057"
   },
   {
@@ -220,7 +305,11 @@
     "name": "The Shaper's Terrace",
     "mapID": 3001,
     "level": 60,
-    "wowheadZone": 16667,
-    "url": "https://www.wowhead.com/forever/zone=16667"
+    "wowheadZone": 16619,
+    "wowheadZones": [
+      16619,
+      16667
+    ],
+    "url": "https://www.wowhead.com/forever/zone=16619"
   }
 ]
