@@ -77,9 +77,9 @@ list to compare against the live dungeon list.
 1. The `GetInstanceInfo()` instanceID inside a Forever dungeon matches the map IDs above.
 2. Live event flow during a run: does `TRANSMOG_COLLECTION_SOURCE_ADDED` fire for
    **each** shared appearance when a boss item is looted by someone else?
-3. Are class-restricted items (a sword for a priest) collected through the shared loot
-   rule? The API marks them `isValidSourceForPlayer=false`; on retail such
-   appearances can't be learned by that class.
+3. ~~Are class-restricted items collected through the shared loot rule?~~ **Yes.** On
+   an account with only a priest, Rockslicer (two-handed axe) and Thief's Blade (sword)
+   show as collected (`/fj probe data`, 14 Nov 2026).
 
 ## 2. Scope (v1)
 

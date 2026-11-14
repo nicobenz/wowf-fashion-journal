@@ -5,9 +5,29 @@ have collected and which are still missing. In Forever, every eligible player in
 group gets the appearance of a bind-on-pickup dungeon boss drop. Blizzard's own
 Appearances tab only shows what you already have.
 
-> Status: early development. The add-on currently contains only the **API probe**
-> (`/fj probe`), which checks what the Forever client offers. The project plan is in
-> [`docs/PLAN.md`](docs/PLAN.md).
+> Status: early development. Only **The Deadmines** is included so far. The project
+> plan is in [`docs/PLAN.md`](docs/PLAN.md).
+
+## Usage
+
+- `/fj` opens the journal. **Outside** a dungeon it shows the overview: every dungeon
+  with its collected/total progress. **Inside** a dungeon it opens that dungeon
+  directly and re-checks its items.
+- Click a dungeon to see its bosses and their appearances:
+  - full color with a green check: collected
+  - blue check: the appearance is collected through another item
+  - grey: missing
+  - `?`: not checked yet
+- **Missing only** and **Usable by this character** filter the view. They never
+  change the counts, because collection is account-wide: a priest collects sword
+  appearances too.
+- **Scan all** (or `/fj scan` outside a dungeon) checks every dungeon against your
+  collection after asking for confirmation. Inside a dungeon, **Rescan** and
+  `/fj scan` only check that dungeon.
+- When you collect an appearance from a dungeon boss, the entry updates right away
+  and a chat line announces it. No rescan is needed.
+- Hover an icon for its tooltip. Ctrl-click opens it in the dressing room,
+  Shift-click links it in chat.
 
 ## Install (from git)
 
@@ -78,6 +98,7 @@ send that file instead of copying the text.
 4. In game, run `/fj probe data` to check every item's binding, quality and
    appearance.
 
+- Tests: `lua5.1 tests/run.lua` (also run in GitHub Actions).
 - Lint: `luacheck .` (config in `.luacheckrc`, also run in GitHub Actions).
 - Release packaging: `.pkgmeta` for the BigWigs packager. Not set up for publishing yet.
 - The Forever client's own UI source and API documentation are mirrored on the `forever`

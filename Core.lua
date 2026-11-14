@@ -30,17 +30,33 @@ local function InitDB()
 	db.version = db.version or DB_VERSION
 	db.items = db.items or {}
 	db.ui = db.ui or {}
+	db.ui.filters = db.ui.filters or { missingOnly = false, usableOnly = false }
 	db.probe = db.probe or {}
 	db.probe.events = db.probe.events or {}
 	ns.db = db
 end
 
--- Events --------------------------------------------------------------------
+-- Internal callbacks (module -> module) --------------------------------------
+
+local callbacks = {}
+
+function ns.On(name, handler)
+	callbacks[name] = callbacks[name] or {}
+	table.insert(callbacks[name], handler)
+end
+
+function ns.Fire(name, ...)
+	for _, handler in ipairs(callbacks[name] or {}) do
+		handler(...)
+	end
+end
+
+-- Game events -------------------------------------------------------------------
 
 local eventFrame = CreateFrame("Frame")
 local handlers = {}
 
--- Registers a handler for an event. Several modules can listen to the same event.
+-- Registers a handler for a game event. Several modules can listen to the same event.
 -- Returns false if the client does not know the event.
 function ns.RegisterEvent(event, handler)
 	if C_EventUtils and C_EventUtils.IsEventValid and not C_EventUtils.IsEventValid(event) then
@@ -55,11 +71,7 @@ function ns.RegisterEvent(event, handler)
 end
 
 eventFrame:SetScript("OnEvent", function(_, event, ...)
-	local list = handlers[event]
-	if not list then
-		return
-	end
-	for _, handler in ipairs(list) do
+	for _, handler in ipairs(handlers[event] or {}) do
 		handler(event, ...)
 	end
 end)
@@ -69,22 +81,35 @@ ns.RegisterEvent("ADDON_LOADED", function(_, loadedName)
 		return
 	end
 	InitDB()
-	if ns.OnInitialize then
-		ns.OnInitialize()
-	end
+	ns.Fire("INITIALIZE")
 end)
+
+-- Helpers -----------------------------------------------------------------------
+
+-- The dungeon from Data/Dungeons.lua the player is currently in, or nil.
+function ns.GetCurrentDungeon()
+	local _, instanceType, _, _, _, _, _, instanceID = GetInstanceInfo()
+	if instanceType ~= "party" and instanceType ~= "raid" then
+		return nil
+	end
+	return ns.Model.FindByMapID(ns.Dungeons, instanceID)
+end
 
 -- Slash commands ----------------------------------------------------------
 
 local function PrintHelp()
 	ns.Print("version %s", ns.version)
+	print("  /fj                  - open or close the journal")
+	print("  /fj scan             - scan the current dungeon, or all dungeons (asks first)")
 	print("  /fj probe            - run the API probe and show a copyable report")
 	print("  /fj probe item <ids> - probe only the given item IDs (space separated)")
 	print("  /fj probe data       - check every item in the add-on's dungeon data")
 	print("  /fj probe clear      - clear the probe's event log")
 end
 
-local commands = {}
+local commands = {
+	help = PrintHelp,
+}
 
 function ns.RegisterCommand(name, handler)
 	commands[name] = handler
@@ -97,12 +122,13 @@ SlashCmdList.FASHIONJOURNAL = function(msg)
 	local cmd, rest = msg:match("^(%S*)%s*(.-)$")
 	cmd = (cmd or ""):lower()
 
+	if cmd == "" then
+		ns.UI.Toggle()
+		return
+	end
 	local handler = commands[cmd]
 	if handler then
 		handler(rest)
-	elseif cmd == "" then
-		-- The journal window does not exist yet (see docs/PLAN.md, phase 4).
-		PrintHelp()
 	else
 		PrintHelp()
 	end

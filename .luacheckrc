@@ -17,6 +17,7 @@ globals = {
 	"SlashCmdList",
 	"SLASH_FASHIONJOURNAL1",
 	"SLASH_FASHIONJOURNAL2",
+	"StaticPopupDialogs",
 }
 
 -- WoW API and FrameXML globals the add-on reads.
@@ -37,6 +38,12 @@ read_globals = {
 	"GetLocale",
 	"Item",
 	"UIParent",
+	"GameTooltip",
+	"HandleModifiedItemClick",
+	"ITEM_QUALITY_COLORS",
+	"NO",
+	"StaticPopup_Show",
+	"YES",
 	"UISpecialFrames",
 	"UnitClass",
 	"UnitLevel",
