@@ -85,6 +85,36 @@ send that file instead of copying the text.
 
 ## Development
 
+### Branches and releases
+- **`main`** holds released versions only. **`develop`** is the integration branch.
+- New work happens on a **feature branch off `develop`** and goes back in through a
+  pull request, merged as a **squash merge** once the feature works. CI (lint, unit
+  tests, data check) must pass.
+- **Releasing:** open a pull request from `develop` to `main`. After it is merged,
+  create a version **tag** on `main` (`git tag v0.1.0 && git push origin v0.1.0`, or
+  "Create release" on GitHub). Releases are triggered by tags only, never by merges
+  or pushes, so the version number is always chosen deliberately and an accidental
+  merge publishes nothing.
+- **Version tags** follow `vMAJOR.MINOR.PATCH`. The tag decides the release type:
+
+  | Tag | Release type | Typical use |
+  |---|---|---|
+  | `v0.2.0` | release | tagged on `main` |
+  | `v0.2.0-beta1` | beta | may be tagged on `develop` for testers |
+  | `v0.2.0-alpha1` | alpha | early test builds |
+
+- **Publishing (planned):** a GitHub Actions workflow runs the
+  [BigWigs packager](https://github.com/BigWigsMods/packager) on `v*` tags. It builds
+  the add-on zip from `.pkgmeta`, substitutes `@project-version@` with the tag, and
+  uploads it to CurseForge as a Forever file (Interface 16001 → game version 1.60.1).
+  Release builds leave out the development probe (`Probe/`, plus `#@debug@` markers
+  in the TOC), `docs/`, `tools/` and `tests/`.
+- **Still to set up before the first release:**
+  - [ ] CurseForge project created; its ID goes into the TOC as `## X-Curse-Project-ID`
+  - [ ] CurseForge API token stored as the GitHub secret `CF_API_KEY`
+  - [ ] Optional: Wago project (`## X-Wago-ID`) and secret `WAGO_API_TOKEN`
+  - [ ] Release workflow (`.github/workflows/release.yml`) and probe exclusion
+
 ### Dungeon data
 `Data/Dungeons.lua` is generated, so don't edit it by hand. Wowhead's drop data is
 collected by players and fills in over time, so refresh it every week or so.
@@ -117,7 +147,7 @@ export date, and `open --missing` opens only dungeons that have no export yet.
 
 - Tests: `lua5.1 tests/run.lua` (also run in GitHub Actions).
 - Lint: `luacheck .` (config in `.luacheckrc`, also run in GitHub Actions).
-- Release packaging: `.pkgmeta` for the BigWigs packager. Not set up for publishing yet.
+- Release packaging: `.pkgmeta` for the BigWigs packager (see *Branches and releases*).
 - The Forever client's own UI source and API documentation are mirrored on the `forever`
   branch of [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever).
   This is the best reference for what the client supports.
