@@ -5,6 +5,9 @@ Inputs (all in tools/data/):
   wowhead/*.json             exports made with tools/wowhead_export.js on a dungeon zone page
   gamedata/DungeonEncounter.csv  boss encounters per instance map (from the game client)
   gamedata/Map.csv           instance maps (from the game client)
+  gamedata/LFGDungeons.csv   dungeon finder entries: the live dungeon list (from the game client)
+  gamedata/ContentTuning.csv level per dungeon finder entry (from the game client)
+  lfg_map_aliases.json       dungeon finder name -> map ID where the names differ
   npc_aliases.json           NPC name -> encounter name, for adds whose loot belongs to a boss
   excluded_items.json        item IDs to drop (e.g. no transmog appearance in the client)
 
@@ -13,6 +16,7 @@ An item is kept if it
   - is Uncommon (2) or better,
   - drops from an NPC that matches a boss encounter of the dungeon (directly or via alias).
 Binding (bind-on-pickup) is not in the Wowhead data; check it in game with /fj probe data.
+Dungeons are ordered by their dungeon finder level, then by name.
 
 Usage: python3 tools/build_data.py            # writes Data/Dungeons.lua, prints a summary
        python3 tools/build_data.py --check    # exits 1 if Data/Dungeons.lua is out of date
@@ -64,6 +68,33 @@ def load_excluded():
     return {int(k): v for k, v in json.loads(path.read_text(encoding="utf-8")).items() if not k.startswith("_")}
 
 
+def norm(name):
+    name = re.sub(r"^the\s+", "", name.strip().lower())
+    return re.sub(r"[^a-z0-9]+", "", name)
+
+
+def load_dungeon_levels(maps):
+    """Live dungeons from the dungeon finder: map ID -> {name, level}. Raids are skipped."""
+    with open(DATA / "gamedata" / "ContentTuning.csv", encoding="utf-8") as f:
+        tuning = {r["ID"]: int(r["MinLevelSquish"]) for r in csv.DictReader(f)}
+    aliases = json.loads((DATA / "lfg_map_aliases.json").read_text(encoding="utf-8"))
+    by_norm = {norm(m["MapName_lang"]): map_id for map_id, m in maps.items()}
+    levels, unmatched = {}, []
+    with open(DATA / "gamedata" / "LFGDungeons.csv", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            name = row["Name_lang"]
+            map_id = aliases.get(name) or by_norm.get(norm(name))
+            if not map_id:
+                unmatched.append(name)
+                continue
+            if maps[map_id]["InstanceType"] != "1":
+                continue  # raid
+            level = tuning.get(row["ContentTuningID"], 0)
+            entry = levels.setdefault(map_id, {"name": name, "level": level})
+            entry["level"] = min(entry["level"], level) if entry["level"] else level
+    return levels, unmatched
+
+
 def table(export, kind, table_id=None):
     for t in export.get("tables", []):
         if t.get("kind") == kind and (table_id is None or t.get("id") == table_id):
@@ -97,7 +128,7 @@ def find_map(export, encounters_by_map, aliases):
     return best, best_score
 
 
-def build_dungeon(path, encounters_by_map, maps, aliases, excluded_ids, log):
+def build_dungeon(path, encounters_by_map, maps, aliases, excluded_ids, levels, log):
     export = json.loads(path.read_text(encoding="utf-8"))
     name = dungeon_name(export) or path.stem
     map_id, score = find_map(export, encounters_by_map, aliases)
@@ -140,9 +171,13 @@ def build_dungeon(path, encounters_by_map, maps, aliases, excluded_ids, log):
         if not bosses[e["id"]]["items"]:
             log.append(f"   warning: boss {e['name']} ({e['id']}) has no items")
 
+    level = levels.get(map_id, {}).get("level")
+    if not level:
+        log.append(f"   warning: no dungeon finder level for map {map_id}")
     return {
         "key": slug(name),
         "name": name,
+        "level": level or 0,
         "mapID": map_id,
         "wowheadZone": wowhead_zone(export),
         "bosses": [
@@ -167,6 +202,7 @@ def render(dungeons):
         out.append("\t{")
         out.append(f"\t\tkey = {lua_string(d['key'])},")
         out.append(f"\t\tname = {lua_string(d['name'])},")
+        out.append(f"\t\tlevel = {d['level']},")
         out.append(f"\t\tmapID = {d['mapID']},")
         if d["wowheadZone"]:
             out.append(f"\t\twowheadZone = {d['wowheadZone']},")
@@ -189,10 +225,18 @@ def main():
     maps = load_maps()
     aliases = load_aliases()
     excluded_ids = load_excluded()
+    levels, unmatched = load_dungeon_levels(maps)
     log = []
-    dungeons = [build_dungeon(p, encounters_by_map, maps, aliases, excluded_ids, log)
+    dungeons = [build_dungeon(p, encounters_by_map, maps, aliases, excluded_ids, levels, log)
                 for p in sorted((DATA / "wowhead").glob("*.json"))]
-    dungeons.sort(key=lambda d: d["name"].lower())
+    dungeons.sort(key=lambda d: (d["level"], d["name"].lower()))
+    for name in unmatched:
+        log.append(f"warning: dungeon finder entry '{name}' matches no map; add it to lfg_map_aliases.json")
+    covered = {d["mapID"] for d in dungeons}
+    todo = sorted((v["level"], v["name"]) for m, v in levels.items() if m not in covered)
+    if todo:
+        log.append(f"{len(todo)} live dungeons without a Wowhead export yet:")
+        log.extend(f"   {lvl:>2}  {name}" for lvl, name in todo)
 
     keys = [d["key"] for d in dungeons]
     if len(keys) != len(set(keys)):

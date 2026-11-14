@@ -87,6 +87,7 @@ test("generated data has the expected shape", function()
 	local seen = {}
 	for _, d in ipairs(dataNs.Dungeons) do
 		assert(type(d.key) == "string" and type(d.mapID) == "number", "dungeon key/mapID")
+		assert(type(d.level) == "number" and d.level > 0, d.key .. " has no level")
 		assert(#d.bosses > 0, d.key .. " has no bosses")
 		for _, b in ipairs(d.bosses) do
 			assert(type(b.encounterID) == "number", "encounterID")

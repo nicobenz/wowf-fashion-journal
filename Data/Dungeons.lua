@@ -5,6 +5,7 @@ ns.Dungeons = {
 	{
 		key = "deadmines",
 		name = "The Deadmines",
+		level = 16,
 		mapID = 36,
 		wowheadZone = 1581,
 		bosses = {

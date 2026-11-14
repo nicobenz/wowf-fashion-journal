@@ -1,0 +1,11 @@
+{
+  "_comment": "Dungeon finder names that don't match the instance map name. Value: Map ID (tools/data/gamedata/Map.csv).",
+  "Stormwind Stockades": 34,
+  "Zul'Farak": 209,
+  "Dire Maul - East": 429,
+  "Dire Maul - North": 429,
+  "Dire Maul - West": 429,
+  "Lower Blackrock Spire": 229,
+  "Upper Blackrock Spire": 229,
+  "Onyxia": 249
+}

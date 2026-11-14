@@ -160,6 +160,12 @@ results), so we **ship our own dungeon → boss → item table**. Options:
 
 Map IDs for detecting the current dungeon come from the game data (list above).
 
+**Live dungeon list and order:** the client's dungeon finder table (`LFGDungeons` plus
+`ContentTuning`) lists Forever's 28 dungeon maps (the classic dungeons and the nine new
+ones) with a recommended level for each. Dungeons are ordered by that level, then by
+name, and `tools/build_data.py` lists the live dungeons that still have no Wowhead
+export.
+
 The table stores only IDs. Names and icons come from the client at runtime.
 ```lua
 { key = "deadmines", mapID = 36, name = "The Deadmines",

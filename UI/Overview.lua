@@ -56,6 +56,9 @@ function Overview.Render(content, width)
 
 		local collected, total, checked = ns.Model.DungeonProgress(dungeon, getStatus)
 		local name = dungeon.name
+		if dungeon.level and dungeon.level > 0 then
+			name = string.format("|cff808080%2d|r  %s", dungeon.level, name)
+		end
 		if dungeon == current then
 			name = name .. "  |cff33ff99(you are here)|r"
 		end
