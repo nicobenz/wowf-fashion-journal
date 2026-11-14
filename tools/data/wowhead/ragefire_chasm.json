@@ -1,0 +1,32 @@
+{"exportedAt": "2026-11-14T18:22:15.702Z", "url": "https://www.wowhead.com/forever/zone=2437/ragefire-chasm", "title": "Ragefire Chasm - Zone - WoW Forever", "tables": [
+{"id": "drops", "name": "Drops", "kind": "item", "rows": [
+{"id": 14145, "name": "Cursed Felblade", "quality": 3, "classs": 2, "subclass": 7, "slot": 21, "appearances": {"0": [24981, ""]}, "sourcemore": [{"n": "Taragaman the Hungerer", "t": 1, "ti": 11520, "z": 2437}]},
+{"id": 14147, "name": "Cavedweller Bracers", "quality": 3, "classs": 4, "subclass": 3, "slot": 9, "appearances": {"0": [23392, ""]}, "sourcemore": [{"n": "Jergosh the Invoker", "t": 1, "ti": 11518, "z": 2437}]},
+{"id": 14148, "name": "Crystalline Cuffs", "quality": 3, "classs": 4, "subclass": 1, "slot": 9, "appearances": {"0": [11501, ""]}, "sourcemore": [{"n": "Taragaman the Hungerer", "t": 1, "ti": 11520, "z": 2437}]},
+{"id": 14149, "name": "Subterranean Cape", "quality": 3, "classs": 4, "subclass": -6, "slot": 16, "appearances": {"0": [23071, "inv_helmet_48"]}, "sourcemore": [{"n": "Taragaman the Hungerer", "t": 1, "ti": 11520, "z": 2437}]},
+{"id": 14150, "name": "Robe of Evocation", "quality": 3, "classs": 4, "subclass": 1, "slot": 5, "appearances": {"0": [15201, "inv_chest_cloth_18"]}, "sourcemore": [{"n": "Jergosh the Invoker", "t": 1, "ti": 11518, "z": 2437}]},
+{"id": 14151, "name": "Chanting Blade", "quality": 3, "classs": 2, "subclass": 15, "slot": 13, "appearances": {"0": [20607, "inv_weapon_shortblade_04"]}, "sourcemore": [{"n": "Jergosh the Invoker", "t": 1, "ti": 11518, "z": 2437}]},
+{"id": 272996, "name": "Trogg Scepter", "quality": 3, "classs": 2, "subclass": 4, "slot": 21, "appearances": {"0": [1515, "inv_misc_bone_01"]}, "sourcemore": [{"n": "Oggleflint", "t": 1, "ti": 11517, "z": 2437}]},
+{"id": 272998, "name": "Bone Knuckles", "quality": 3, "classs": 2, "subclass": 13, "slot": 21, "appearances": {"0": [743522, "inv_misc_monsterclaw_01"]}, "sourcemore": [{"n": "Oggleflint", "t": 1, "ti": 11517, "z": 2437}]},
+{"id": 272999, "name": "Barbaric Crossbow", "quality": 3, "classs": 2, "subclass": 18, "slot": 15, "appearances": {"0": [25607, "inv_weapon_crossbow_04"]}, "sourcemore": [{"n": "Oggleflint", "t": 1, "ti": 11517, "z": 2437}]},
+{"id": 273003, "name": "Searing Dagger", "quality": 3, "classs": 2, "subclass": 15, "slot": 21, "appearances": {"0": [3363, ""]}, "sourcemore": [{"n": "Bazzalan", "t": 1, "ti": 11519, "z": 2437}]},
+{"id": 273005, "name": "Satyrskin Cloak", "quality": 3, "classs": 4, "subclass": -6, "slot": 16, "appearances": {"0": [23071, "inv_helmet_48"]}, "sourcemore": [{"n": "Bazzalan", "t": 1, "ti": 11519, "z": 2437}]},
+{"id": 273007, "name": "Chasm Walkers", "quality": 3, "classs": 4, "subclass": 2, "slot": 8, "appearances": {"0": [18145, "inv_boots_05"]}, "sourcemore": [{"n": "Bazzalan", "t": 1, "ti": 11519, "z": 2437}]}
+]},
+{"id": "npcs", "name": "NPCs", "kind": "npc", "rows": [
+{"id": 2673, "name": "Target Dummy", "classification": 0},
+{"id": 8996, "name": "Voidwalker Minion", "classification": 0},
+{"id": 11318, "name": "Ragefire Trogg", "classification": 1},
+{"id": 11319, "name": "Ragefire Shaman", "classification": 1},
+{"id": 11320, "name": "Earthborer", "classification": 1},
+{"id": 11321, "name": "Molten Elemental", "classification": 1},
+{"id": 11322, "name": "Searing Blade Cultist", "classification": 1},
+{"id": 11323, "name": "Searing Blade Enforcer", "classification": 1},
+{"id": 11324, "name": "Searing Blade Warlock", "classification": 1},
+{"id": 11517, "name": "Oggleflint", "classification": 1, "tag": "Ragefire Chieftain"},
+{"id": 11518, "name": "Jergosh the Invoker", "classification": 1},
+{"id": 11519, "name": "Bazzalan", "classification": 1},
+{"id": 11520, "name": "Taragaman the Hungerer", "classification": 1},
+{"id": 11834, "name": "Maur Grimtotem", "classification": 0}
+]}
+]}

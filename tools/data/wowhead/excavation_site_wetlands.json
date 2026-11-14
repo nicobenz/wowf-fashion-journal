@@ -1,0 +1,43 @@
+{"exportedAt": "2026-11-14T18:24:25.791Z", "url": "https://www.wowhead.com/forever/zone=16732/excavation-site-wetlands", "title": "Excavation Site: Wetlands - Zone - WoW Forever", "tables": [
+{"id": "drops", "name": "Drops", "kind": "item", "rows": [
+{"id": 273022, "name": "Supple Bellyskin Leggings", "quality": 3, "classs": 4, "subclass": 2, "slot": 7, "appearances": {"0": [11542, "inv_pants_08"]}, "sourcemore": [{"n": "Saltspine", "t": 1, "ti": 260322, "z": 16732}]},
+{"id": 273023, "name": "Saltscale Girdle", "quality": 3, "classs": 4, "subclass": 3, "slot": 6, "appearances": {"0": [734727, ""]}, "sourcemore": [{"n": "Saltspine", "t": 1, "ti": 260322, "z": 16732}]},
+{"id": 273024, "name": "Glinteye Slippers", "quality": 3, "classs": 4, "subclass": 1, "slot": 8, "appearances": {"0": [734651, ""]}, "sourcemore": [{"n": "Saltspine", "t": 1, "ti": 260322, "z": 16732}]},
+{"id": 273025, "name": "Raptorclaw Greaves", "quality": 3, "classs": 4, "subclass": 3, "slot": 8, "appearances": {"0": [734731, ""]}, "sourcemore": [{"n": "Shadetooth", "t": 1, "ti": 260325, "z": 16732}]},
+{"id": 273026, "name": "Garb of Florid Feathers", "quality": 3, "classs": 4, "subclass": 2, "slot": 5, "appearances": {"0": [10018, "inv_chest_leather_04"]}, "sourcemore": [{"n": "Shadetooth", "t": 1, "ti": 260325, "z": 16732}]},
+{"id": 273027, "name": "Raptor's Gaze", "quality": 3, "classs": 4, "subclass": -5, "slot": 23, "appearances": {"0": [21603, "inv_misc_orb_01"]}, "sourcemore": [{"n": "Shadetooth", "t": 1, "ti": 260325, "z": 16732}]},
+{"id": 273028, "name": "Reliquary Mantle", "quality": 3, "classs": 4, "subclass": 3, "slot": 3, "appearances": {"0": [8399, "inv_shoulder_05"]}, "sourcemore": [{"n": "Relic Guardian", "t": 1, "ti": 260326, "z": 16732}]},
+{"id": 273029, "name": "Golemsight Long Gun", "quality": 3, "classs": 2, "subclass": 3, "slot": 15, "appearances": {"0": [741447, "inv_weapon_rifle_03"]}, "sourcemore": [{"n": "Relic Guardian", "t": 1, "ti": 260326, "z": 16732}]},
+{"id": 273030, "name": "Ring of Power Regulation", "quality": 3, "classs": 4, "subclass": -2, "slot": 11, "sourcemore": [{"n": "Relic Guardian", "t": 1, "ti": 260326, "z": 16732}]},
+{"id": 273097, "name": "Blueprint: Rock Garden", "quality": 2, "classs": 9, "subclass": 0, "slot": 0, "sourcemore": [{"n": "Relic Guardian", "t": 1, "ti": 260326, "z": 16732}]},
+{"id": 273106, "name": "Blueprint: Greenhouse", "quality": 2, "classs": 9, "subclass": 0, "slot": 0, "sourcemore": [{"n": "Shadetooth", "t": 1, "ti": 260325, "z": 16732}]}
+]},
+{"id": "npcs", "name": "NPCs", "kind": "npc", "rows": [
+{"id": 13321, "name": "Frog", "classification": 0},
+{"id": 260322, "name": "Saltspine", "classification": 1},
+{"id": 260325, "name": "Shadetooth", "classification": 1},
+{"id": 260326, "name": "Relic Guardian", "classification": 1},
+{"id": 260796, "name": "Marsh Crocolisk", "classification": 0},
+{"id": 260797, "name": "Elder Crocolisk", "classification": 1},
+{"id": 260798, "name": "Young Crocolisk", "classification": 0},
+{"id": 260799, "name": "Young Riptooth", "classification": 0},
+{"id": 260800, "name": "Thicket Lurker", "classification": 1},
+{"id": 260801, "name": "Thicket Hunter", "classification": 1},
+{"id": 260802, "name": "Thicket Matriarch", "classification": 1},
+{"id": 260803, "name": "Highland Spider", "classification": 0},
+{"id": 260804, "name": "Highland Lurker", "classification": 1},
+{"id": 260808, "name": "Highland Horror", "classification": 1},
+{"id": 260809, "name": "Highland Tortoise", "classification": 0},
+{"id": 260810, "name": "Highland Snapper", "classification": 1},
+{"id": 264850, "name": "Hawk", "classification": 0},
+{"id": 271732, "name": "Thicket Stalker", "classification": 1},
+{"id": 271749, "name": "Oil Slime", "classification": 1},
+{"id": 271750, "name": "Tar Ooze", "classification": 1},
+{"id": 274715, "name": "Marsh Skulker", "classification": 1},
+{"id": 274983, "name": "Mist Howler's Packmate", "classification": 0},
+{"id": 275044, "name": "Dragonmaw Warder", "classification": 1},
+{"id": 275045, "name": "Dragonmaw Saboteur", "classification": 1},
+{"id": 275046, "name": "Dragonmaw Thaumaturgist", "classification": 1},
+{"id": 275049, "name": "Captive Fire Elemental", "classification": 1}
+]}
+]}

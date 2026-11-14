@@ -1,4 +1,4 @@
-{"exportedAt": "2026-11-14T17:33:23.174Z", "url": "https://www.wowhead.com/forever/zone=1581/the-deadmines", "title": "The Deadmines - Zone - WoW Forever", "tables": [
+{"exportedAt": "2026-11-14T18:22:50.264Z", "url": "https://www.wowhead.com/forever/zone=1581/the-deadmines", "title": "The Deadmines - Zone - WoW Forever", "tables": [
 {"id": "drops", "name": "Drops", "kind": "item", "rows": [
 {"id": 872, "name": "Rockslicer", "quality": 3, "classs": 2, "subclass": 1, "slot": 17, "appearances": {"0": [19242, ""]}, "sourcemore": [{"n": "Rhahk'Zor", "t": 1, "ti": 644, "z": 1581}]},
 {"id": 1156, "name": "Lavishly Jeweled Ring", "quality": 3, "classs": 4, "subclass": -2, "slot": 11, "sourcemore": [{"n": "Gilnid", "t": 1, "ti": 1763, "z": 1581}]},
