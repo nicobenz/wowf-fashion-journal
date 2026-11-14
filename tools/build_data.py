@@ -135,7 +135,7 @@ def build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log
         log.append("   excluded " + line)
     for e in encounters:
         if not items_by_boss[e["id"]]:
-            log.append(f"   warning: boss {e['name']} ({e['id']}) has no items yet")
+            log.append(f"   warning: boss {e['name']} ({e['id']}) has no items yet (left out)")
 
     return {
         "key": dungeon["key"],
@@ -143,9 +143,10 @@ def build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log
         "level": dungeon["level"],
         "mapID": map_id,
         "wowheadZone": dungeon["wowheadZone"],
+        # Bosses without known drops are left out until Wowhead has data for them.
         "bosses": [
             {"name": e["name"], "encounterID": e["id"], "items": sorted(items_by_boss[e["id"]])}
-            for e in encounters
+            for e in encounters if items_by_boss[e["id"]]
         ],
     }
 
