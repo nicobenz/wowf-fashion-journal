@@ -87,9 +87,16 @@ send that file instead of copying the text.
 
 ### Branches and releases
 - **`main`** holds released versions only. **`develop`** is the integration branch.
-- New work happens on a **feature branch off `develop`** and goes back in through a
-  pull request, merged as a **squash merge** once the feature works. CI (lint, unit
-  tests, data check) must pass.
+- New work happens on a **feature branch off `develop`** and goes back into `develop`
+  through a pull request, merged as a **squash merge** once the feature works. CI
+  (lint, unit tests, data check) must pass. The feature branch is **deleted after the
+  merge**; the next feature starts from a fresh branch off the updated `develop`.
+- Suggested GitHub settings to enforce this:
+  - Settings → General → Pull Requests: allow only **squash merging**, and enable
+    **"Automatically delete head branches"**.
+  - Settings → Rules → Rulesets for `develop` and `main`: **require a pull request**
+    before merging and **require status checks** (the Lint workflow's jobs) to pass;
+    block force pushes and deletion.
 - **Releasing:** open a pull request from `develop` to `main`. After it is merged,
   create a version **tag** on `main` (`git tag v0.1.0 && git push origin v0.1.0`, or
   "Create release" on GitHub). Releases are triggered by tags only, never by merges
