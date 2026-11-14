@@ -1,0 +1,4 @@
+{
+  "_comment": "Items the converter must drop, with the in-game evidence. Key: item ID.",
+  "285292": "Dull Sawblade (thrown): C_TransmogCollection.GetItemInfo returns nothing on build 1.60.1.70938 (/fj probe data, 2026-11-14)"
+}

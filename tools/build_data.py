@@ -6,6 +6,7 @@ Inputs (all in tools/data/):
   gamedata/DungeonEncounter.csv  boss encounters per instance map (from the game client)
   gamedata/Map.csv           instance maps (from the game client)
   npc_aliases.json           NPC name -> encounter name, for adds whose loot belongs to a boss
+  excluded_items.json        item IDs to drop (e.g. no transmog appearance in the client)
 
 An item is kept if it
   - has a transmog appearance,
@@ -56,6 +57,13 @@ def load_aliases():
     return {k: v for k, v in json.loads(path.read_text(encoding="utf-8")).items() if not k.startswith("_")}
 
 
+def load_excluded():
+    path = DATA / "excluded_items.json"
+    if not path.exists():
+        return {}
+    return {int(k): v for k, v in json.loads(path.read_text(encoding="utf-8")).items() if not k.startswith("_")}
+
+
 def table(export, kind, table_id=None):
     for t in export.get("tables", []):
         if t.get("kind") == kind and (table_id is None or t.get("id") == table_id):
@@ -89,7 +97,7 @@ def find_map(export, encounters_by_map, aliases):
     return best, best_score
 
 
-def build_dungeon(path, encounters_by_map, maps, aliases, log):
+def build_dungeon(path, encounters_by_map, maps, aliases, excluded_ids, log):
     export = json.loads(path.read_text(encoding="utf-8"))
     name = dungeon_name(export) or path.stem
     map_id, score = find_map(export, encounters_by_map, aliases)
@@ -104,6 +112,9 @@ def build_dungeon(path, encounters_by_map, maps, aliases, log):
     excluded = []
     for item in table(export, "item", "drops"):
         label = f"{item['id']} {item.get('name')}"
+        if item["id"] in excluded_ids:
+            excluded.append(f"{label}: excluded_items.json")
+            continue
         if not item.get("appearances"):
             excluded.append(f"{label}: no appearance")
             continue
@@ -177,8 +188,9 @@ def main():
     encounters_by_map = load_encounters()
     maps = load_maps()
     aliases = load_aliases()
+    excluded_ids = load_excluded()
     log = []
-    dungeons = [build_dungeon(p, encounters_by_map, maps, aliases, log)
+    dungeons = [build_dungeon(p, encounters_by_map, maps, aliases, excluded_ids, log)
                 for p in sorted((DATA / "wowhead").glob("*.json"))]
     dungeons.sort(key=lambda d: d["name"].lower())
 

@@ -9,7 +9,7 @@ ns.Dungeons = {
 		wowheadZone = 1581,
 		bosses = {
 			{ name = "Rhahk'Zor", encounterID = 2741, items = { 872, 5187, 273289 } },
-			{ name = "Sneed", encounterID = 2742, items = { 1937, 2169, 5194, 5195, 273293, 285292 } },
+			{ name = "Sneed", encounterID = 2742, items = { 1937, 2169, 5194, 5195, 273293 } },
 			{ name = "Miner Johnson", encounterID = 3676, items = { 5443, 5444 } },
 			{ name = "Gilnid", encounterID = 2743, items = { 5199, 273297 } },
 			{ name = "Captain Greenskin", encounterID = 2744, items = { 5200, 5201, 10403 } },
