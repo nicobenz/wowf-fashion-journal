@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "tools" / "data"
 OUTPUT = ROOT / "Data" / "Dungeons.lua"
 MIN_QUALITY = 2  # Uncommon
+NO_TRANSMOG_SLOTS = {24, 25}  # Wowhead slot IDs: ammo, thrown (no appearance in the Forever client)
 NORMAL_DIFFICULTIES = {0, 1}  # other DifficultyIDs are variants of the same map (e.g. Season of Discovery)
 
 
@@ -115,6 +116,9 @@ def build_dungeon(dungeon, export, encounters_by_map, aliases, excluded_ids, log
             continue
         if not item.get("appearances"):
             excluded.append(f"{label}: no appearance")
+            continue
+        if item.get("slot") in NO_TRANSMOG_SLOTS:
+            excluded.append(f"{label}: slot {item.get('slot')} has no transmog")
             continue
         if (item.get("quality") or 0) < MIN_QUALITY:
             excluded.append(f"{label}: quality {item.get('quality')}")
