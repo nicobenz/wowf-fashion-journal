@@ -80,6 +80,7 @@ local function PrintHelp()
 	ns.Print("version %s", ns.version)
 	print("  /fj probe            - run the API probe and show a copyable report")
 	print("  /fj probe item <ids> - probe only the given item IDs (space separated)")
+	print("  /fj probe data       - check every item in the add-on's dungeon data")
 	print("  /fj probe clear      - clear the probe's event log")
 end
 

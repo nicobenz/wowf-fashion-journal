@@ -56,6 +56,7 @@ git -C FashionJournal checkout <branch-name>
 
 Other commands:
 - `/fj probe item 5193 5191`: check specific item IDs only.
+- `/fj probe data`: check every item in the add-on's dungeon data.
 - `/fj probe clear`: clear the event log.
 
 The last report is also saved to
@@ -63,6 +64,19 @@ The last report is also saved to
 send that file instead of copying the text.
 
 ## Development
+
+### Dungeon data
+`Data/Dungeons.lua` is generated, so don't edit it by hand.
+1. On a Wowhead Forever dungeon zone page, run `tools/wowhead_export.js` in the browser
+   console. It copies the page's loot and NPC tables as JSON.
+2. Save the JSON as `tools/data/wowhead/<dungeon>.json`.
+3. Run `python3 tools/build_data.py`. It matches the drops to the boss encounters in
+   `tools/data/gamedata/DungeonEncounter.csv` (taken from the game client) and prints
+   which items it excluded and why. If an add's loot belongs to a boss with a
+   different name (e.g. Sneed's Shredder → Sneed), add it to
+   `tools/data/npc_aliases.json`.
+4. In game, run `/fj probe data` to check every item's binding, quality and
+   appearance.
 
 - Lint: `luacheck .` (config in `.luacheckrc`, also run in GitHub Actions).
 - Release packaging: `.pkgmeta` for the BigWigs packager. Not set up for publishing yet.

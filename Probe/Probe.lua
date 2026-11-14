@@ -472,6 +472,65 @@ function Probe:EventLog(rep)
 	end
 end
 
+-- Data check: verifies every item in Data/Dungeons.lua in the client.
+local BIND_NAMES = { [0] = "none", [1] = "BoP", [2] = "BoE", [3] = "BoU", [4] = "quest" }
+
+function Probe:CheckData(rep, done)
+	rep:Section("Data check (Data/Dungeons.lua)")
+	local itemIDs = {}
+	for _, dungeon in ipairs(ns.Dungeons or {}) do
+		for _, boss in ipairs(dungeon.bosses) do
+			for _, itemID in ipairs(boss.items) do
+				itemIDs[#itemIDs + 1] = itemID
+			end
+		end
+	end
+	rep:Add("%d dungeons, %d items. Flags: !BIND = not bind-on-pickup, !QUALITY = below Uncommon, !APPEARANCE = no transmog source, !LOAD = no item data",
+		#(ns.Dungeons or {}), #itemIDs)
+
+	LoadItems(itemIDs, function()
+		local problems, collected = 0, 0
+		for _, dungeon in ipairs(ns.Dungeons or {}) do
+			rep:Add("")
+			rep:Add("[%s] %s (mapID %d)", dungeon.key, dungeon.name, dungeon.mapID)
+			for _, boss in ipairs(dungeon.bosses) do
+				rep:Add("  %s (encounter %d)", boss.name, boss.encounterID)
+				for _, itemID in ipairs(boss.items) do
+					local info = call("C_Item.GetItemInfo", itemID)
+					local name, quality, bindType = info[1], info[3], info[14]
+					local tc = call("C_TransmogCollection.GetItemInfo", itemID)
+					local appearanceID, sourceID = tc.ok and tc[1], tc.ok and tc[2]
+					local has = sourceID and call("C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance", sourceID)
+					local isCollected = has and has.ok and has[1]
+					if isCollected then
+						collected = collected + 1
+					end
+
+					local flags = {}
+					if not (info.ok and name) then
+						flags[#flags + 1] = "!LOAD"
+					else
+						if bindType ~= 1 then flags[#flags + 1] = "!BIND" end
+						if (quality or 0) < 2 then flags[#flags + 1] = "!QUALITY" end
+					end
+					if not sourceID then
+						flags[#flags + 1] = "!APPEARANCE"
+					end
+					if #flags > 0 then
+						problems = problems + 1
+					end
+					rep:Add("    %d %s  q=%s bind=%s appearance=%s source=%s %s %s", itemID, tostring(name),
+						tostring(quality), BIND_NAMES[bindType] or tostring(bindType), tostring(appearanceID),
+						tostring(sourceID), isCollected and "COLLECTED" or "missing", table.concat(flags, " "))
+				end
+			end
+		end
+		rep:Add("")
+		rep:Add("summary: %d items, %d collected, %d with problems", #itemIDs, collected, problems)
+		done()
+	end)
+end
+
 -- Entry point -----------------------------------------------------------------
 
 local function ParseItemIDs(text)
@@ -502,6 +561,17 @@ function Probe:Run(args)
 
 	local rep, ctx = Report.new(), {}
 	rep:Add("Fashion Journal probe report, %s", date("%Y-%m-%d %H:%M:%S"))
+
+	if sub == "data" then
+		local version, build = GetBuildInfo()
+		rep:Add("build: %s (%s)", tostring(version), tostring(build))
+		ns.Print("checking item data...")
+		self:CheckData(rep, function()
+			Finish(rep)
+		end)
+		return
+	end
+
 	self:Client(rep)
 	self:Apis(rep)
 
