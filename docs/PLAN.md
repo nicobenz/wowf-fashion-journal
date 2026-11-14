@@ -89,6 +89,13 @@ list to compare against the live dungeon list.
   - **Appearance known**: the look is already collected through a different item that shares it. Shown as collected, with a subtle marker.
   - **Missing**.
 - Progress per dungeon and per boss (e.g. `Deadmines 14/22`).
+- Collection state is **account-wide** and is what the progress counts are based on.
+  The class of the character you're on doesn't change which items count.
+- Optional filter checkbox **"Usable by this character"** (off by default). It hides
+  items the current character can't use, based on
+  `GetSourceInfo(sourceID).isValidSourceForPlayer` / `useError`, which probe run 1
+  confirmed: a sword on a priest returns *"This appearance can't be used by your class."*
+  This filter only changes what is shown. It never changes the counts.
 - Filter to show only missing items. Item tooltip on hover. Ctrl-click opens the dressing room, Shift-click links the item in chat.
 
 ### Behaviour
