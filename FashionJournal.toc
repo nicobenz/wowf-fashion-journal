@@ -1,0 +1,20 @@
+## Interface: 16001
+## Title: Fashion Journal
+## Notes: Shows which dungeon appearances you have collected in WoW Forever and which are missing.
+## Version: @project-version@
+## SavedVariables: FashionJournalDB
+## X-Website: https://github.com/nicobenz/wowf-fashion-journal
+
+Core.lua
+Model.lua
+Data\Dungeons.lua
+Collection.lua
+Scanner.lua
+UI\ItemButton.lua
+UI\Overview.lua
+UI\DungeonView.lua
+UI\MainFrame.lua
+
+# Development probe (/fj probe). Remove from the TOC before the first release.
+Probe\ReportFrame.lua
+Probe\Probe.lua

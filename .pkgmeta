@@ -1,0 +1,8 @@
+package-as: FashionJournal
+
+ignore:
+  - docs
+  - tests
+  - tools
+  - .github
+  - .luacheckrc

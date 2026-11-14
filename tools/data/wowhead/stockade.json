@@ -1,0 +1,39 @@
+{"exportedAt": "2026-11-14T18:23:52.126Z", "url": "https://www.wowhead.com/forever/zone=717/the-stockade", "title": "The Stockade - Zone - WoW Forever", "tables": [
+{"id": "drops", "name": "Drops", "kind": "item", "rows": [
+{"id": 1076, "name": "Defias Renegade Ring", "quality": 3, "classs": 4, "subclass": -2, "slot": 11, "sourcemore": [{"z": 717}]},
+{"id": 2280, "name": "Kam's Walking Stick", "quality": 3, "classs": 2, "subclass": 10, "slot": 17, "appearances": {"0": [20370, ""]}, "sourcemore": [{"n": "Kam Deepfury", "t": 1, "ti": 1666, "z": 717}]},
+{"id": 2941, "name": "Prison Shank", "quality": 3, "classs": 2, "subclass": 15, "slot": 13, "appearances": {"0": [20359, ""]}, "sourcemore": [{"n": "Bruegal Ironknuckle", "t": 1, "ti": 1720, "z": 717}]},
+{"id": 2942, "name": "Iron Knuckles", "quality": 3, "classs": 2, "subclass": 13, "slot": 13, "appearances": {"0": [3007, ""]}, "sourcemore": [{"n": "Bruegal Ironknuckle", "t": 1, "ti": 1720, "z": 717}]},
+{"id": 3228, "name": "Jimmied Handcuffs", "quality": 3, "classs": 4, "subclass": 3, "slot": 9, "appearances": {"0": [3406, ""]}, "sourcemore": [{"n": "Bruegal Ironknuckle", "t": 1, "ti": 1720, "z": 717}]},
+{"id": 273804, "name": "Executioner Mantle", "quality": 3, "classs": 4, "subclass": 2, "slot": 3, "appearances": {"0": [737471, "inv_shoulder_09"]}, "sourcemore": [{"n": "Targorr the Dread", "t": 1, "ti": 1696, "z": 717}]},
+{"id": 273805, "name": "Blackrock Harness", "quality": 3, "classs": 4, "subclass": 2, "slot": 5, "appearances": {"0": [737472, ""]}, "sourcemore": [{"n": "Targorr the Dread", "t": 1, "ti": 1696, "z": 717}]},
+{"id": 273806, "name": "Dark Horde Band", "quality": 3, "classs": 4, "subclass": -2, "slot": 11, "sourcemore": [{"n": "Targorr the Dread", "t": 1, "ti": 1696, "z": 717}]},
+{"id": 273807, "name": "Demolition Girdle", "quality": 3, "classs": 4, "subclass": 2, "slot": 6, "appearances": {"0": [4297, "inv_belt_04"]}, "sourcemore": [{"n": "Kam Deepfury", "t": 1, "ti": 1666, "z": 717}]},
+{"id": 273808, "name": "Bridgebreaker Bindings", "quality": 3, "classs": 4, "subclass": 1, "slot": 9, "appearances": {"0": [12955, "inv_bracer_14"]}, "sourcemore": [{"n": "Kam Deepfury", "t": 1, "ti": 1666, "z": 717}]},
+{"id": 273809, "name": "Hamhock's Cleaver", "quality": 3, "classs": 2, "subclass": 0, "slot": 21, "appearances": {"0": [2767, "inv_axe_23"]}, "sourcemore": [{"n": "Hamhock", "t": 1, "ti": 1717, "z": 717}]},
+{"id": 273810, "name": "Ogre Grips", "quality": 3, "classs": 4, "subclass": 3, "slot": 10, "appearances": {"0": [4413, ""]}, "sourcemore": [{"n": "Hamhock", "t": 1, "ti": 1717, "z": 717}]},
+{"id": 273811, "name": "Repurposed Rack", "quality": 3, "classs": 4, "subclass": 6, "slot": 14, "appearances": {"0": [26322, ""]}, "sourcemore": [{"n": "Hamhock", "t": 1, "ti": 1717, "z": 717}]},
+{"id": 273817, "name": "Graverobber's Shovel", "quality": 3, "classs": 2, "subclass": 5, "slot": 17, "appearances": {"0": [7495, ""]}, "sourcemore": [{"n": "Dextren Ward", "t": 1, "ti": 1663, "z": 717}]},
+{"id": 273819, "name": "Boneslicer", "quality": 3, "classs": 2, "subclass": 6, "slot": 17, "appearances": {"0": [7437, ""]}, "sourcemore": [{"n": "Dextren Ward", "t": 1, "ti": 1663, "z": 717}]},
+{"id": 273820, "name": "Nightskulker Ring", "quality": 3, "classs": 4, "subclass": -2, "slot": 11, "sourcemore": [{"n": "Dextren Ward", "t": 1, "ti": 1663, "z": 717}]},
+{"id": 273824, "name": "Defias Jailbreakers", "quality": 3, "classs": 4, "subclass": 2, "slot": 10, "appearances": {"0": [1796, "inv_gauntlets_17"]}, "sourcemore": [{"n": "Bazil Thredd", "t": 1, "ti": 1716, "z": 717}]},
+{"id": 273825, "name": "Red Wool Cloak", "quality": 3, "classs": 4, "subclass": -6, "slot": 16, "appearances": {"0": [15165, ""]}, "sourcemore": [{"n": "Bazil Thredd", "t": 1, "ti": 1716, "z": 717}]},
+{"id": 273827, "name": "Debt Collector", "quality": 3, "classs": 2, "subclass": 7, "slot": 21, "appearances": {"0": [7485, ""]}, "sourcemore": [{"n": "Bazil Thredd", "t": 1, "ti": 1716, "z": 717}]},
+{"id": 273829, "name": "Concealed Hand Crossbow", "quality": 3, "classs": 2, "subclass": 18, "slot": 15, "appearances": {"0": [10673, "inv_weapon_crossbow_01"]}, "sourcemore": [{"n": "Bazil Thredd", "t": 1, "ti": 1716, "z": 717}]},
+{"id": 274092, "name": "Sharpened Cutlery", "quality": 3, "classs": 2, "subclass": 16, "slot": 25, "appearances": {"0": [20779, "inv_throwingknife_01"]}, "sourcemore": [{"z": 717}]}
+]},
+{"id": "npcs", "name": "NPCs", "kind": "npc", "rows": [
+{"id": 1663, "name": "Dextren Ward", "classification": 1},
+{"id": 1666, "name": "Kam Deepfury", "classification": 1},
+{"id": 1696, "name": "Targorr the Dread", "classification": 1},
+{"id": 1706, "name": "Defias Prisoner", "classification": 1},
+{"id": 1707, "name": "Defias Captive", "classification": 1},
+{"id": 1708, "name": "Defias Inmate", "classification": 1},
+{"id": 1711, "name": "Defias Convict", "classification": 1},
+{"id": 1715, "name": "Defias Insurgent", "classification": 1},
+{"id": 1716, "name": "Bazil Thredd", "classification": 1},
+{"id": 1717, "name": "Hamhock", "classification": 1},
+{"id": 1720, "name": "Bruegal Ironknuckle", "classification": 2},
+{"id": 264850, "name": "Hawk", "classification": 0}
+]}
+]}

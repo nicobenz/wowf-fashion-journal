@@ -1,0 +1,8 @@
+{
+  "_comment": "Wowhead zone IDs where the client's area ID is not the one Wowhead uses. Key: map ID. Value: zone IDs, the first is opened, all are accepted on import.",
+  "109": [1477, 1417],
+  "229": [1583, 17804],
+  "230": [1584, 17803],
+  "2959": [16560, 16544],
+  "3001": [16619, 16667]
+}

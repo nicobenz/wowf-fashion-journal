@@ -1,0 +1,20 @@
+{
+  "_comment": "NPCs whose loot belongs to a boss encounter with a different name. Key: NPC name as on Wowhead. Value: DungeonEncounter name.",
+  "Sneed's Shredder": "Sneed",
+  "Gelihast": "Geilhast",
+  "Ras Frostwhisper": "Ras Frostwhisperer",
+  "Kirtonos the Herald": "Kirtonos",
+  "Baelog": "The Lost Dwarves",
+  "Olaf": "The Lost Dwarves",
+  "Eric \"The Swift\"": "The Lost Dwarves",
+  "Grizzle": "Ring of Law",
+  "Hedrum the Creeper": "Ring of Law",
+  "Anub'shiah": "Ring of Law",
+  "Eviscerator": "Ring of Law",
+  "Ok'thor the Breaker": "Ring of Law",
+  "Gorosh the Dervish": "Ring of Law",
+  "Arena Spoils": "Ring of Law",
+  "Secret Safe": "The Vault",
+  "Ogom the Wretched": "Jammal'an the Prophet",
+  "Gyth": "Warchief Rend Blackhand"
+}

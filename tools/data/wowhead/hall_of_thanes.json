@@ -1,0 +1,32 @@
+{"exportedAt": "2026-11-14T18:22:36.488Z", "url": "https://www.wowhead.com/forever/zone=16919/the-hall-of-thanes", "title": "The Hall of Thanes - Zone - WoW Forever", "tables": [
+{"id": "drops", "name": "Drops", "kind": "item", "rows": [
+{"id": 270227, "name": "Ephemeral Choker", "quality": 3, "classs": 4, "subclass": -3, "slot": 2, "sourcemore": [{"n": "Faldrim Anvilmar", "t": 1, "ti": 261306, "z": 16919}]},
+{"id": 270228, "name": "Golemheart Stave", "quality": 3, "classs": 2, "subclass": 10, "slot": 17, "appearances": {"0": [5542, "inv_wand_11"]}, "sourcemore": [{"n": "Plunder", "t": 1, "ti": 261311, "z": 16919}]},
+{"id": 270229, "name": "Treads of the Protector Golem", "quality": 3, "classs": 4, "subclass": 3, "slot": 8, "appearances": {"0": [752130, ""]}, "sourcemore": [{"n": "Plunder", "t": 1, "ti": 261311, "z": 16919}]},
+{"id": 270230, "name": "Kindlegem Girdle", "quality": 3, "classs": 4, "subclass": 3, "slot": 6, "appearances": {"0": [6559, "inv_belt_06"]}, "sourcemore": [{"n": "Magmatus", "t": 1, "ti": 261316, "z": 16919}]},
+{"id": 270231, "name": "Flamefist Grips", "quality": 3, "classs": 4, "subclass": 2, "slot": 10, "appearances": {"0": [9785, "inv_gauntlets_21"]}, "sourcemore": [{"n": "Magmatus", "t": 1, "ti": 261316, "z": 16919}]},
+{"id": 270256, "name": "Durgen's Crescent Axe", "quality": 3, "classs": 2, "subclass": 0, "slot": 21, "appearances": {"0": [739815, "inv_axe_05"]}, "sourcemore": [{"n": "Durgen Dirgehammer", "t": 1, "ti": 261319, "z": 16919}]},
+{"id": 270260, "name": "Direhammer Leggings", "quality": 3, "classs": 4, "subclass": 2, "slot": 7, "appearances": {"0": [752110, "inv_pants_02"]}, "sourcemore": [{"n": "Durgen Dirgehammer", "t": 1, "ti": 261319, "z": 16919}]},
+{"id": 270261, "name": "Robes of the Disgraced Thane", "quality": 3, "classs": 4, "subclass": 1, "slot": 5, "appearances": {"0": [10461, "inv_chest_cloth_40"]}, "sourcemore": [{"n": "Durgen Dirgehammer", "t": 1, "ti": 261319, "z": 16919}]},
+{"id": 271095, "name": "Fang of Magmatus", "quality": 3, "classs": 2, "subclass": 15, "slot": 21, "appearances": {"0": [6455, ""]}, "sourcemore": [{"n": "Magmatus", "t": 1, "ti": 261316, "z": 16919}]},
+{"id": 271096, "name": "Aetherwisp Bracers", "quality": 3, "classs": 4, "subclass": 1, "slot": 9, "appearances": {"0": [7812, ""]}, "sourcemore": [{"n": "Faldrim Anvilmar", "t": 1, "ti": 261306, "z": 16919}]},
+{"id": 271097, "name": "Spiritwraith Drape", "quality": 3, "classs": 4, "subclass": -6, "slot": 16, "appearances": {"0": [23128, "inv_misc_cape_11"]}, "sourcemore": [{"n": "Faldrim Anvilmar", "t": 1, "ti": 261306, "z": 16919}]},
+{"id": 271098, "name": "Golemguard Chest", "quality": 3, "classs": 4, "subclass": 3, "slot": 5, "appearances": {"0": [22677, ""]}, "sourcemore": [{"n": "Plunder", "t": 1, "ti": 261311, "z": 16919}]}
+]},
+{"id": "npcs", "name": "NPCs", "kind": "npc", "rows": [
+{"id": 10656, "name": "Guardian Felhunter", "classification": 0},
+{"id": 261306, "name": "Faldrim Anvilmar", "classification": 1},
+{"id": 261311, "name": "Plunder", "classification": 1},
+{"id": 261316, "name": "Magmatus", "classification": 1},
+{"id": 261319, "name": "Durgen Dirgehammer", "classification": 1},
+{"id": 263389, "name": "Enraged Apparition", "classification": 1},
+{"id": 263390, "name": "Tormented Soul", "classification": 1},
+{"id": 263396, "name": "Dark Iron Looter", "classification": 1},
+{"id": 263397, "name": "Dark Iron Engineer", "classification": 1},
+{"id": 263438, "name": "Dark Iron Summoner", "classification": 1},
+{"id": 263466, "name": "Lesser Stone Golem", "classification": 1},
+{"id": 263467, "name": "Fiery Assistant", "classification": 0},
+{"id": 263470, "name": "Bloodhound Runt", "classification": 0},
+{"id": 264850, "name": "Hawk", "classification": 0}
+]}
+]}
