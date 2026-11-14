@@ -3,166 +3,169 @@
 An add-on for **World of Warcraft: Forever** that shows, per dungeon and per boss,
 which bind-on-pickup appearances you have already collected and which are still missing.
 
-## 1. What we know about WoW Forever (as of Nov 2026)
+## 1. What we know about WoW Forever
 
-| Topic | Finding | Confidence |
-|---|---|---|
-| Release | Launched 4 Nov 2026. A separate, permanent level 1–60 branch, included with a WoW subscription. Nine new dungeons and three raids. Raids unlock 9 Dec 2026. | High (several sources) |
-| Client / API | Forever runs on the **modern (retail-style) API**, not the Classic Era API. Classic Era add-ons (Interface 11509) do not load. | Medium (community guides) |
-| Interface number | `## Interface: 16001` (client version 1.60.x). Check in game with `/dump select(4, GetBuildInfo())`. | Medium (community guides + Warcraft Wiki multi-flavor example) |
-| Collections UI | The account-wide **Collections → Appearances** tab exists (Shift+P), even when transmog is switched off. | Medium |
-| Shared dungeon appearances | BoP **Uncommon/Rare** dungeon boss drops give their appearance to **every eligible looter**, even if they lose the roll. | High (several sources) |
-| Raid epics | Appearance goes only to the player who gets the item. Out of scope for v1. | High |
-| Poor/Common items | Appearance is granted when looted (no binding needed). | Medium |
-| Level lock | Higher-tier dungeon/raid appearances stay locked until level 60. | Medium (single source) |
-| Hardcore | Collection may not be account-wide on Hardcore realms. Sources disagree. | Low |
-| Built-in dungeon journal | **No Adventure Guide / Encounter Journal UI** in Forever. Community add-ons fill the gap. | Medium |
+### From the Forever client's own UI source (primary source)
+Blizzard's interface code for each client is mirrored at
+[Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source). It has a
+**`forever` branch** (build `1.60.1.70938`, 13 Nov 2026) that includes Blizzard's
+generated API documentation (`Blizzard_APIDocumentationGenerated`). The table below
+was checked against that branch.
 
-### Unverified: needs an in-game check (Phase 0)
+| Topic | Finding |
+|---|---|
+| Client family | Forever is the **modern client**. Its internal codename is **Camelot**. The code sets `WOW_PROJECT_CAMELOT = 18` and `WOW_PROJECT_ID = WOW_PROJECT_CAMELOT`. Most UI is shared with retail ("mainline"), with Camelot-specific override files. |
+| Transmog API | **`C_TransmogCollection` exists with every function we need**: `GetItemInfo(itemInfo) → itemAppearanceID, itemModifiedAppearanceID`, `GetSourceInfo`, `GetAppearanceSources`, `GetAllAppearanceSources`, `GetAppearanceInfoBySource`, `PlayerHasTransmog(itemID[, modID])`, `PlayerHasTransmogItemModifiedAppearance`, `PlayerKnowsSource`, `PlayerCanCollectSource`, `AccountCanCollectSource`, `GetSourceItemID`. |
+| Events | `TRANSMOG_COLLECTION_SOURCE_ADDED(itemModifiedAppearanceID)`, `TRANSMOG_COLLECTION_SOURCE_REMOVED(itemModifiedAppearanceID)`, `TRANSMOG_COLLECTION_UPDATED`, `TRANSMOG_COLLECTION_ITEM_UPDATE`. The *added* event tells us exactly which source was learned, so we can update one entry without a rescan. |
+| Collections UI | The Appearances tab exists, but Forever's override **hides uncollected appearances and the progress bar** (`Blizzard_Collections/Camelot/Blizzard_Wardrobe.lua`: *"In Camelot we dont want to show uncollected appearances"*). In other words, Blizzard's own UI deliberately doesn't show what you're missing. That is the gap this add-on fills. |
+| Encounter Journal | The `C_EncounterJournal` namespace exists (`Environment = "All"`), and the journal add-on is in the client. In Forever, it is switched on or off by the server game rule `Enum.GameRule.EncounterJournalDisabled` (`GameRulesUtil.EJIsDisabled()`). Community sources say there's no journal in Forever, so the rule is probably active, and its loot data may or may not be usable. **We need an in-game check.** |
+| Interface number | Version 1.60.1 → `## Interface: 16001` (major·10000 + minor·100 + patch). This matches what community guides say. |
 
-1. Whether `C_TransmogCollection` exists in Forever and which functions it has:
-   `GetItemInfo`, `GetSourceInfo`, `GetAppearanceSources`/`GetAllAppearanceSources`,
-   `PlayerHasTransmog`, `PlayerHasTransmogItemModifiedAppearance`,
-   `PlayerKnowsSource`. (The Warcraft Wiki lists `PlayerHasTransmog` as present on
-   Classic Era too, which is a good sign.)
-2. Whether the Encounter Journal **API** (`EJ_*`, `C_EncounterJournal`) exists and
-   has data, even though there is no journal UI. If it does, we can skip shipping our
-   own loot tables. Assume it does not.
-3. Events: `TRANSMOG_COLLECTION_SOURCE_ADDED`, `TRANSMOG_COLLECTION_SOURCE_REMOVED`,
-   `TRANSMOG_COLLECTION_UPDATED`.
-4. Whether Forever supports a flavor-specific TOC suffix (e.g. `_Forever.toc`), or
-   whether we only use the plain `.toc` with `16001`.
-5. Whether uncollectable items (wrong armor type for the class, level-locked) return
-   valid source info, and whether `isCollected` reports correctly for them.
-6. How the new Rare dungeon items look in the data (bonus IDs or item modifiers that
-   change the `itemModifiedAppearanceID`).
+### From community sources (rules of the game)
+- BoP **Uncommon/Rare** dungeon boss drops give their appearance to **every eligible
+  looter**, even if they lose the roll. This is the core mechanic the add-on tracks.
+- Collection is **account-wide**. Appearances are collected even when transmog is switched off.
+- Raid epics only give their appearance to the player who gets the item (out of scope for v1).
+- Level-locks and similar *usage* restrictions are **ignored by design**. This add-on is
+  about whether you have collected an appearance, not whether you can use it.
 
-## 2. Scope
+### Still to check in game (Phase 0)
+1. Does the `EJ_*` / `C_EncounterJournal` loot data return Forever dungeons and drops
+   (`EJ_SelectInstance`, `EJ_GetNumLoot`, `C_EncounterJournal.GetLootInfoByIndex`)
+   while the game rule hides the journal?
+2. Does `C_TransmogCollection.GetItemInfo` return data for the new Rare dungeon items,
+   and are any of them modified variants (bonus IDs)?
+3. Does `GetSourceInfo(sourceID).isCollected` / `PlayerHasTransmogItemModifiedAppearance`
+   work for items the current character can't wear (e.g. plate on a mage)?
+4. Is a flavor-suffixed TOC recognised (`_Forever.toc`, `_Camelot.toc`), or do we ship a plain `.toc`?
+5. What `GetInstanceInfo()` returns inside a Forever dungeon (its `instanceID`/map ID is how
+   we recognise which dungeon you're in).
 
-### v1 (MVP)
-- Covers every Forever dungeon: the nine new ones plus any reworked classic dungeons that are live.
-- Lists each dungeon's bosses and their BoP Uncommon/Rare drops.
-- Shows each item as collected / appearance known from another item / missing.
+## 2. Scope (v1)
+
+- Covers every Forever dungeon, with each dungeon's bosses and their BoP Uncommon/Rare drops.
+- Each item has one of three states:
+  - **Collected**: this exact item (source) is known.
+  - **Appearance known**: the look is already collected through a different item that shares it. Shown as collected, with a subtle marker.
+  - **Missing**.
 - Progress per dungeon and per boss (e.g. `Deadmines 14/22`).
-- Filters: missing only, by armor type or slot, usable by current class.
-- Item tooltip on hover. Ctrl-click previews the item in the dressing room. Shift-click links it in chat.
-- Open with `/fj` (`/fashionjournal`) and an optional minimap button.
+- Filter to show only missing items. Item tooltip on hover. Ctrl-click opens the dressing room, Shift-click links the item in chat.
+
+### Behaviour
+| Situation | Behaviour |
+|---|---|
+| `/fj` **outside** an instance | Opens the **overview**: all dungeons with their collected/total progress, taken from the last saved scan. Click a dungeon to see its bosses and items. |
+| `/fj` **inside** a known dungeon | Opens straight into **that dungeon's view**. That one dungeon is re-checked quickly when it opens (a few dozen items). |
+| Appearance collected **during a run** | On `TRANSMOG_COLLECTION_SOURCE_ADDED(sourceID)`, look up the source in a reverse index (sourceID → dungeon/boss/item). Update only that entry, save it, and refresh the view if it's open. **No rescan.** |
+| **Full scan** | Started from a "Scan all" button or `/fj scan`. Outside a dungeon it first asks for confirmation (`StaticPopup`: "Scan all N dungeons (M items)? This may take a few seconds."). It works through items in batches across frames so the game doesn't stall, and shows progress. Inside a dungeon, the scan button only re-checks that dungeon. |
+| First login / no saved data | The overview says "not scanned yet" and offers the full scan (still with confirmation). |
 
 ### Later
-- Raids (personal-loot rules differ), world drops, quest rewards.
-- A note in the item tooltip: "Fashion Journal: missing, drops from X in Y".
-- A notice when entering a dungeon: "You are missing N appearances here".
-- An optional tab inside the Collections window instead of a separate frame.
+- Raids, world drops, quest rewards.
+- An item tooltip note ("Fashion Journal: missing, drops from X in Y").
+- On entering a dungeon, a chat line: "You are missing N appearances here."
 
 ## 3. Architecture
 
 ```
 FashionJournal/
   FashionJournal.toc        ## Interface: 16001, SavedVariables: FashionJournalDB
-  Core.lua                  init, events, slash command, saved variables
-  Data/Dungeons.lua         static: dungeons -> bosses -> itemIDs (generated)
-  Collection.lua            wraps the transmog API: per-item status, cache
+  Core.lua                  init, events, slash command, instance detection
+  Data/Dungeons.lua         static: dungeons -> bosses -> itemIDs (+ instance map ID)
+  Collection.lua            transmog API wrapper: status per item, reverse index
+  Scanner.lua               async, batched scanning (one dungeon or all)
   Model.lua                 pure logic: progress counts, filtering, sorting
-  UI/MainFrame.lua          window: dungeon list (left), boss/item grid (right)
-  UI/ItemButton.lua         icon, collected overlay, tooltip, click handlers
-  Libs/                     LibStub, LibDataBroker, LibDBIcon (minimap only)
-tools/
-  generate_data.py          builds Data/Dungeons.lua from a data source
+  UI/MainFrame.lua          window shell, switching between overview and dungeon view
+  UI/Overview.lua           dungeon list with progress bars
+  UI/DungeonView.lua        bosses, item icon grid
+  UI/ItemButton.lua         icon, state overlay, tooltip, click handlers
 tests/
   *_spec.lua                busted tests with a stubbed WoW API
+tools/
+  generate_data.*           builds Data/Dungeons.lua from the chosen data source
 ```
 
-### Item data (the main open question)
-There is no in-game journal, so we will probably have to **ship our own loot table**.
-Ways to get it, in order of preference:
-
-1. **The Encounter Journal API at runtime**, if Phase 0 shows it exists and has data. No upkeep needed.
-2. **Game data tables for the Forever build** (for example `JournalInstance`,
-   `JournalEncounter`, `JournalEncounterItem`, via wago.tools or a similar db2
-   export). The tables may exist even without the UI. A script turns them into
-   `Data/Dungeons.lua`.
-3. **Wowhead Forever** pages for each dungeon ("drops from"). Pull them by script or
-   by hand, then check them by hand.
-4. **Hand-curated** list as a last resort, starting with the nine new dungeons.
-
-The data format stores only IDs; names and icons come from the client at runtime:
+### Saved data (`FashionJournalDB`, account-wide like the collection itself)
 ```lua
-{ id = "deadmines", name = "The Deadmines", minLevel = 17,
-  bosses = { { name = "Edwin VanCleef", items = { 5193, 5191, 5202 } }, ... } }
+FashionJournalDB = {
+  version = 1,
+  lastFullScan = 1731600000,       -- time() of the last full scan
+  items = {                        -- itemID -> scan result
+    [5193] = { source = 1234, appearance = 567, state = "collected" },
+  },
+  ui = { point = {...}, missingOnly = false, minimap = {} },
+}
+```
+The client is still the source of truth. The saved results only let the overview
+show progress straight away without a full rescan. Results are refreshed whenever a
+dungeon is opened, when a single source is added, and when a full scan runs.
+
+### Item data source
+The Encounter Journal can't be relied on (the game rule above), so the plan is to
+**ship our own dungeon → boss → item table**, ideally generated by script.
+
+1. **The journal API at runtime**, if Phase 0 shows it returns Forever data. No upkeep needed.
+2. **Game data tables for build 1.60.x** (`JournalInstance`, `JournalEncounter`,
+   `JournalEncounterItem`, `Map`) from a db2 export, turned into `Data/Dungeons.lua`
+   by `tools/generate_data`.
+3. Wowhead Forever "drops from" pages, checked by hand.
+
+The table stores only IDs. Names and icons come from the client at runtime.
+```lua
+{ key = "deadmines", mapID = 36, name = "The Deadmines",
+  bosses = { { name = "Edwin VanCleef", items = { 5193, 5191, 5202 } } } }
 ```
 
-### Collection status logic
-For each itemID:
-1. Load the item asynchronously (`Item:CreateFromItemID():ContinueOnItemLoad`, or
-   `C_Item.RequestLoadItemDataByID` plus `ITEM_DATA_LOAD_RESULT`).
-2. Call `C_TransmogCollection.GetItemInfo(itemID)` to get `appearanceID, sourceID`.
-3. Look up this exact source with `C_TransmogCollection.GetSourceInfo(sourceID).isCollected`,
-   falling back to `PlayerHasTransmogItemModifiedAppearance(sourceID)`.
-4. If this source is not collected, check whether **any** source of `appearanceID` is
-   collected (`GetAllAppearanceSources`). If one is, show "appearance known, from another item".
-5. Fallback if the API is limited: `PlayerHasTransmog(itemID)`.
-6. Cache results in memory. Clear the cache entry for that source on
-   `TRANSMOG_COLLECTION_SOURCE_ADDED/REMOVED`, and refresh the open view.
-
-The collection is account-wide and the client already stores it, so the saved
-variables only hold UI settings (window position, filters, minimap). No collection
-data is copied into them.
+### Status check for one item
+1. Make sure the item data is loaded (`Item:CreateFromItemID(id):ContinueOnItemLoad`).
+2. Get `appearanceID, sourceID` from `C_TransmogCollection.GetItemInfo(itemID)`.
+3. If `PlayerHasTransmogItemModifiedAppearance(sourceID)` (or `GetSourceInfo(sourceID).isCollected`), the state is **collected**.
+4. Otherwise, if any source in `GetAllAppearanceSources(appearanceID)` is collected, the state is **appearance known**.
+5. Otherwise the state is **missing**.
+6. Fallback if step 2 returns nothing: `PlayerHasTransmog(itemID)`.
+7. Store the result and put `sourceID → item` in the reverse index.
 
 ## 4. Phases
 
-**Phase 0: API spike (about 1 evening, needs a Forever client)**
-A throwaway `FJProbe` add-on that, on `/fjprobe`, prints which namespaces and
-functions exist, runs the steps in §3 on a few known dungeon items (collected and
-uncollected, cloth and plate, below and above the level lock), and checks
-`EJ_GetNumTier`/`EJ_SelectInstance`. Its output answers every point in §1
-"Unverified". **Everything after this depends on the result.**
+**Phase 0: probe in game (needs someone with a Forever client)**
+A throwaway `FJProbe` add-on. Running `/fjprobe` prints the client version and
+interface number, `GetInstanceInfo()`, whether the journal data works, and the full
+status check for a handful of known dungeon item IDs. This answers the
+"Still to check in game" list above.
 
-**Phase 1: Skeleton and tooling**
-TOC, core, slash command, saved variables. Add luacheck config (WoW globals),
+**Phase 1: skeleton and tooling**
+TOC, core, slash command, saved variables. Add a luacheck config with WoW globals,
 busted plus API stubs, and a GitHub Action for linting, tests and packaging
 (BigWigs packager → CurseForge/Wago).
 
-**Phase 2: Data**
-Build the dungeon→boss→item table from the best source found in Phase 0, starting
-with one dungeon end to end, then all of them. Add a test that checks the data
-(no duplicates, every boss has items, IDs are numbers).
+**Phase 2: data**
+Build the dungeon table, one dungeon end to end first, then all of them. Add a test
+that checks the data: no duplicates, every boss has items, every dungeon has a map ID.
 
-**Phase 3: Collection module and model**
-Status logic, cache and events. Unit-test the model (counts, filters) with stubbed
-API answers.
+**Phase 3: collection, scanner and model**
+Status check, reverse index, batched async scanner, incremental updates from
+`SOURCE_ADDED`/`REMOVED`, and the confirmation popup before a full scan. Unit tests
+for the model and scanner against a stubbed API.
 
 **Phase 4: UI**
-A plain frame using Blizzard templates (`ButtonFrameTemplate` / `PortraitFrameTemplate`),
-a scrolling dungeon list (`ScrollBox`/`DataProvider` if present, otherwise
-`FauxScrollFrame`), and a boss section with an item icon grid that greys out and
-desaturates missing items. Add tooltips, dressing-room preview and chat links.
+Overview and dungeon view built from Blizzard templates (`ButtonFrameTemplate`,
+`ScrollBox`/`DataProvider`, which are available because this is the modern client).
+Instance-aware `/fj`, tooltips, dressing-room preview, chat links, missing-only filter.
 
-**Phase 5: Polish and release**
-Filters, minimap button, localization scaffold (enUS first), README, screenshots,
-release v0.1.0.
+**Phase 5: polish and release**
+Minimap/compartment button, localization scaffold (enUS), README with screenshots, release v0.1.0.
 
 ## 5. Risks
-
-- **API gaps in Forever**: covered by Phase 0. If source-level lookups are missing,
-  fall back to `PlayerHasTransmog(itemID)` and accept less detail.
-- **Data accuracy and upkeep**: Forever is new and loot tables may change with
-  patches. Keep the data generated by script and covered by tests.
-- **Item cache misses**: item info may not be loaded yet, so all lookups must be
-  asynchronous. Never assume `GetItemInfo` returns data straight away.
-- **Rules ambiguity**: the level-60 lock and Hardcore behaviour may make items
-  "uncollectable right now". Show this as its own state, not as "missing".
-- **Interface number bumps**: update `## Interface` with each Forever patch.
+- **Loot data upkeep**: Forever is new and loot tables may change with patches. Keep the data generated by script and covered by tests.
+- **Item cache misses**: item info may not be loaded yet, so all lookups must be asynchronous. A full scan has to run in batches.
+- **Blizzard hides uncollected appearances on purpose** in Forever's own UI. If a later patch also restricts the API for uncollected sources, the "missing" view would break. The Phase 0 probe and a quick re-check after each patch will catch this.
+- **Interface number** goes up with each Forever patch. Update `## Interface` each time.
 
 ## Sources
+- Forever client UI source: https://github.com/Gethe/wow-ui-source/tree/forever
 - https://en.wikipedia.org/wiki/World_of_Warcraft:_Forever
-- https://www.pcgamer.com/games/world-of-warcraft/forever-release-date-launch-times/
 - https://www.icy-veins.com/wow-forever/roadmap
 - https://www.warcrafttavern.com/forever/news/transmog-in-world-of-warcraft-forever/
 - https://www.icy-veins.com/wow-forever/transmog-system
-- https://wowforeverguides.com/transmog
 - https://wowforeverguides.com/addons/developers
-- https://bindonforever.com/articles/do-classic-era-addons-work-in-wow-forever
 - https://warcraft.wiki.gg/wiki/TOC_format
-- https://warcraft.wiki.gg/wiki/API_C_TransmogCollection.PlayerHasTransmog
-- https://www.warcrafttavern.com/forever/guides/transmog/
-- https://wowhead.com/forever/wardrobe
